@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Account Settings";
+}
+    <div class="container" id="main">
+        <div class="flash affix-top"></div>
+        <div class="row" id="breadcrumbs">
+            <div class="col-md-12 down80">
+                <h1>Settings</h1>
+                <ul id="project-tabs">
+                    <li>
+                        <a class="active" href="./Settings   demo_book   O'Reilly Atlas_files/Settings   demo_book   O'Reilly Atlas.html">
+                            <i class="glyphicons settings"></i> Account Settings
+                        </a>
+                    </li>
+                    <li class="hidden">
+                        <a class="" href="https://atlas.oreilly.com/settings/groups">
+                            <i class="glyphicons group"></i> Groups
+                        </a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+           
+            <div class="col-md-4" id="left">
+                <div class="box right10 down20 hidden" id="token-box">
+                    <div class="box-top">
+                        <h3><i class="glyphicons lock"></i> API Token</h3>
+                    </div>
+                    <div class="box-inner">
+
+                        <p>Use this API Token to access the Atlas API programmatically:</p>
+                        <pre id="authentication-token">Q7qoy7e3ajd6aJBM6153</pre>
+                        <p>Please keep this token secret, and reset the token if compromised.</p>
+                        <a href="https://atlas.oreilly.com/settings#" id="reset-token-link" class="btn btn-error">Reset Token</a>
+
+                    </div>
+                </div>
+                
+                <div class="box right10 down20" id="notifications-box">
+                    <div class="box-top">
+                        <h3><i class="glyphicons envelope"></i> Notifications</h3>
+                    </div>
+                    <div class="box-inner">
+                        <p>
+                            <label for="notifications-checkbox">
+                                <input type="checkbox" checked="" id="notifications-checkbox"> Receive email notifications.
+                            </label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8" id="right">
+                <div class="box down20" id="personal-information">
+                    <div class="box-top">
+                        <h3>Personal Information</h3>
+                    </div>
+                    <div class="box-inner">
+                        <div class="row-fluid">
+                            <div class="span2" id="gravatar-box">
+                                <p id="missing-gravatar">
+                                    Add your <a href="https://gravatar.com/">Gravatar</a>
+                                </p>
+                            </div>
+                            <div class="span6">
+                                <h3>
+                                    Ivan Tsurkan
+                                    <span id="email-address">tsurkan_i@mail.ru</span>
+                                </h3>
+                                <ul class="user-info">
+                                    <li><span class="light">Username: </span>demo_book</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box down20">
+                    <div class="box-top">
+                        <h3>Change Password</h3>
+                    </div>
+                    <div class="box-inner">
+                        <form accept-charset="UTF-8" action="https://atlas.oreilly.com/users/update_password" autocomplete="off" class="edit_user" id="edit_user_1317" method="post">
+                            <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="gvLC6PT08/bCOKAABwfCxvQaO5gbvqL1xBF8T7SHpG0="></div>
+                            <fieldset>
+                                <label for="old-password">Old password</label>
+                                <input id="old-password" type="password" name="current_password" style="height:100%;">
+                                <p>Passwords must be at least 8 characters.</p>
+                                <label for="new-password">New password</label>
+                                <input id="new-password" type="password" name="password" style="height:100%;">
+                                <label for="new-password-confirm">Confirm new password</label>
+                                <input id="new-password-confirm" type="password" name="password_confirmation" style="height:100%;">
+                            </fieldset>
+                            <input type="submit" class="btn btn-success down10" value="Change Password">
+                        </form>
+                    </div>
+                </div>
+                <div class="box down20" id="registration-codes">
+                    <div class="box-top">
+                        <h3>Registration Code</h3>
+                    </div>
+                    <div class="box-inner">
+                        <div class="code-list list">
+                            <div class="list-item list-padding">
+                                ATLASTRIAL <span class="days">3 days left</span>
+
+                                <a href="https://atlas.oreilly.com/settings#"><i class="glyphicons circle_remove list-icon"></i></a>
+                            </div>
+                        </div>
+                        <form id="code-form" class="form-inline down20">
+                            <input type="text" id="registration_code" name="registration_code" placeholder="Enter new registration code" style="height:100%;">
+                            <input type="submit" class="btn btn-success">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

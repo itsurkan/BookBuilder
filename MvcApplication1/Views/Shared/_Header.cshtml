@@ -1,0 +1,20 @@
+﻿@using MvcApplication1.Filters
+@using WebSecurity = MvcApplication1.Filters.WebSecurity
+
+@{
+    Layout = null;
+}
+    <ul class="nav navbar-nav navbar-right">
+        @if (WebSecurity.UserLogin != null)
+        {
+            @*//todo зробити переадресування на настройки акаунта*@
+            <li>@Html.ActionLink(WebSecurity.UserLogin, "UserSettings", "Settings")</li>
+            <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink("Register", "Register", "Account")</li>
+    <li>@Html.ActionLink("Log in", "Login", "Account")</li>
+        }
+    </ul>
+

@@ -1,0 +1,109 @@
+﻿@model PagedList.IPagedList<MvcApplication1.DbModels.Projects>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Projects";
+}
+
+
+<div class="container" id="main">
+    <div class="flash affix-top"></div>
+    <div class="row down50">
+
+        <!--main-->
+        <div class="col-md-8" id="projects">
+            <h1>Projects</h1>
+
+            <!--Bars-->
+            <div id="projects-bar" class=" clearfix ">
+                <div>
+                    <h5>Sort by:</h5>
+                </div>
+                <div id="projects-sort " class="pull-left " >
+                    
+                    <div class="btn ">
+                        @Html.ActionLink("Title", "ProjectsList",
+                            new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                    </div>
+                    <div class="btn  ">
+                        @Html.ActionLink("Date", "ProjectsList",
+                            new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+                    </div>
+                </div>
+
+                <div class="pull-right" style="padding-bottom:0px; margin-bottom: -10px;">
+                    @using (Html.BeginForm("ProjectsList", "Project", FormMethod.Get))
+                    {
+                        <div>
+                            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                            <input class="btn " type="submit" value="Search" style="margin-bottom: 10px;" />
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+
+            <!--List of Projects-->
+
+            <div class="box" id="project-list">
+                <!-- <div class="box-top"></div> -->
+                <div class="list list-gray list-large">
+
+                    <div>
+                        @{
+                            foreach (var project in Model)
+                            {
+                                string prj = project.Path;
+                                //string hrefto = project.UserLogin + "/" + prj;
+                                const string hrefto = "DashBoard";
+                                <div class="list-item">
+                                    <div class="list-padding">
+                                        
+                                            @Html.ActionLink(project.Title, "ProjectsList")
+                                      
+                                            <button class="btn align-right " style="float: right; margin: -5px 0px -5px 5px; ">
+                                                <i class="icon-edit"></i>
+                                                @Html.ActionLink("Rename", "Configure", new { id = project.Id})
+                                            </button>
+                                        <button class="btn align-right " style="float: right; margin: -5px 0px -5px 5px ;">
+                                            <i class="icon-trash"></i>
+                                            @Html.ActionLink("Delete", "Setting", new { id = project.Id })
+                                        </button>
+                                        <i class="list-icon has-icon-outside-link " style="float: right;"></i>
+                                        </div>
+                                
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--New project button-->
+        <div class="col-md-3 span3 down10 " style="padding-left: 0px;">
+            <div class="new-project-box" style="padding-left: 0px;">
+                <div class="btn btn-medium block align-center btn-link">
+                    @Html.ActionLink("New Project", "NewProject" )
+                </div>
+            </div>
+
+            <!--Rename-Delete-->
+           <!-- <div class="drop-content  ">
+                <div style="padding-top: 15px;">
+                    <button style="width: 49%;" type="button" class="btn  " data-action="prompt-rename"><i class="icon-edit"></i> Rename</button>
+                    <button style="width: 49%;" type="button" class="btn   " data-action="prompt-delete"><i class="icon-trash"></i> Delete</button>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("ProjectsList",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+</div>

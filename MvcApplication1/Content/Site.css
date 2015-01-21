@@ -1,0 +1,268 @@
+﻿
+.li-class {
+    margin: 12px;
+    font-size: 20px;
+    text-decoration: underline;
+    list-style-type: square;
+}
+
+.field-validation-error, .validation-summary-errors {
+    color: crimson;
+}    
+
+.checkbox-inline {
+    height: 17px;
+    width: 80px;
+}
+
+.btn-sm {
+    display: inline;
+}
+.control-label {
+    width: 90px;
+}
+.checkbox {
+    width: 65%;
+    margin-left: 20px;
+    display: inline;
+}
+.form-control {
+    width: 65%;
+    margin-left: 20px;
+    display: inline;
+}
+.navbar {
+    background-color: #2c3e50;
+    color: #fff;
+    font-family: Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+}
+
+    .navbar:after {
+        clear: both;
+    }
+
+    .navbar a {
+        color: #FFF;
+        text-decoration: none;
+    }
+
+.navbar-inner:before, .navbar-inner:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.navbar-inner:after {
+    clear: both;
+}
+
+.navbar .brand {
+    float: left;
+    display: block;
+    padding: 11px 20px 0 0;
+}
+
+.navbar .logo {
+    vertical-align: text-bottom;
+}
+
+.navbar .nav {
+    position: relative;
+    left: 0;
+    display: block;
+    float: left;
+    margin: 0 10px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .navbar .nav.pull-right {
+        float: right;
+        margin-right: 0;
+    }
+
+    .navbar .nav > li {
+        float: left;
+    }
+        .navbar .nav > li > a {
+            float: none;
+            display: block;
+            padding: 10px 20px 10px;
+        }
+
+            .navbar .nav > li > a:focus, .navbar .nav > li > a:hover {
+                
+                background-color: #2c3e50;
+            }
+
+    .navbar .nav #profile-link {
+        font-size: 13px;
+    }
+
+    .navbar .nav #logout-link {
+        background-color: #2c3e50;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+.navbar form {
+    margin: 0;
+}
+
+.navbar .nav input[type="text"] {
+    background-color: #2c3e50;
+    border: 0;
+    font-family: Lato,Helvetica,sans-serif;
+    font-weight: 700;
+    font-size: 1em;
+    padding: 5px 10px 5px;
+    color: #FFF;
+    -webkit-font-smoothing: antialiased;
+    outline: 0;
+    margin: 5px 5px 5px 0;
+}
+
+    .navbar .nav input[type="text"]:-moz-placeholder {
+        color: #fff;
+    }
+
+    .navbar .nav input[type="text"]:-ms-input-placeholder {
+        color: #fff;
+    }
+
+    .navbar .nav input[type="text"]::-webkit-input-placeholder {
+        color: #fff;
+    }
+
+    .navbar .nav input[type="text"]:focus {
+        background-color: #91b35b;
+    }
+
+        .navbar .nav input[type="text"]:focus:-moz-placeholder {
+            color: #91b35b;
+        }
+
+        .navbar .nav input[type="text"]:focus:-ms-input-placeholder {
+            color: #91b35b;
+        }
+
+        .navbar .nav input[type="text"]:focus::-webkit-input-placeholder {
+            color: #91b35b;
+        }
+
+.navbar .nav .glyphicons {
+    color: #FFF;
+}
+
+
+
+/*login*/
+.btn-label {
+    position: relative;
+    left: -12px;
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px 0 0 3px;
+}
+.btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.input-group {
+    margin-bottom: 10px;
+}
+.separator {
+    border-right: 1px solid #dfdfe0;
+}
+.facebook {
+    background-color: #354E84;
+    color: #fff;
+}
+.google {
+    background-color: #00A5E3;
+    color: #fff;
+}
+    .facebook:hover, .google:hover {
+        color: #fff;
+    }
+.btn-big {
+    min-width: 50px;
+    padding: 5px;
+}
+.facebook, .google {
+    padding: 10px;
+}
+/*end login*/
+
+.register {
+  margin-left: 30%;
+   margin-right: -30%;
+       }
+
+.left-side {
+    float: left;
+}
+.right-side {
+    float: right;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 600px;
+}
+
+.new-project-box {
+padding-left: 20px;
+margin-top: 85px;
+}
+
+.new-project-button {
+    padding-left: 20%;
+    padding-right: 20%;
+    border-color: #2c5874;
+    background-color: #0044cc;
+}
+
+.list-project {
+position: absolute;
+right: .75em;
+top: 0;
+bottom: 0;
+margin: auto;
+height: 1.25rem;
+width: 2em;
+border-bottom-color: inherit;
+
+}
+
+.search-box {
+    
+margin-bottom: 10px;
+border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+

@@ -1,0 +1,79 @@
+﻿<div id="breadcrumbs" style="padding-top:30px;">
+    <div>
+        <!--Path and Project setting button-->
+        <div class="row down60">
+
+            <div class="col-md-8" style="padding:0 20px 0 20px">
+                <h1 id="project-title"><a href="./demo_book/my-new-project">demo_book / my-new-project</a></h1>
+            </div>
+
+            <div class="col-md-4 align-right " id="project-nav" style="padding:0 20px 0 20px">
+                <a id="project-settings-link" class="">
+                    <i class="glyphicons cogwheel"></i>
+                    @Html.ActionLink("Project Setting", "Setting", "Project")
+                </a>
+            </div>
+
+        </div>
+
+        <!--Branch bar-->
+        <div class="row-fluid hidden" id="branches-container" style="padding:0px 0 0px 0">
+
+            <!--Button - brach list-->
+            <div class=" ">
+                <span class=" span3">
+                    <select id="" style="height:38px; padding-bottom:0px;" name="access_level">
+                        <option>
+                            master
+                        </option>
+                        <option>
+                            demo_book
+                        </option>
+                    </select>
+
+                </span>
+            </div>
+
+            <div class="branch-callout-container span9">
+                <div class="branch-callout">
+                    <span class="branch-message">
+                        Create a new branch, or edit this one directly.
+                    </span>
+                    <a href="https://BB.com/demo_book/my-new-project#" id="create-branch" class="branch-button btn pull-right">
+                        Add a branch
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Tab menu bar-->
+        <div class="row-fluid">
+            <ul id="project-tabs">
+                <li>
+                    <div id="project-dashboard-link" class="active">
+                        @Html.ActionLink("DashBoard", "DashBoard", "Project")
+                    </div>
+
+                </li>
+                <li>
+                    <div id="project-configure-link">
+                        @Html.ActionLink("Configure", "Configure", "Project")
+                    </div>
+                </li>
+                <li>
+                    <div id="project-builds-link">
+                        @Html.ActionLink("Builds", "Builds", "Project")
+                    </div>
+                </li>
+
+                <li>
+                    <div id="review-link">
+                        @Html.ActionLink("Review", "Review", "Project")
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>

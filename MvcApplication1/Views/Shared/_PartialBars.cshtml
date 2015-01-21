@@ -1,0 +1,44 @@
+﻿<div id="projects-bar" class="down70 clearfix">
+
+    <div id="projects-sort" class="pull-left select-dropdown">
+
+        <div>
+            @using (Ajax.BeginForm("ProjectsList", 
+                    new AjaxOptions()
+                    {
+                        HttpMethod = "POST",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "PayCodes",
+                       
+                    }))
+            {
+
+                @Html.DropDownList("ProjectsList", new SelectListItem[] {
+                new SelectListItem() { Text = "Newest to Oldest", Value = "0" },
+                new SelectListItem() { Text = "Oldest to Newest", Value = "1" } },
+                new
+{
+    onchange = "AdditionalsChanged(this)",
+})
+            }
+            <script>
+    function AdditionalsChanged() {
+        $("#yourFormName").submit();
+    }
+            </script>
+
+
+        </div>
+
+        
+
+
+    </div>
+
+    <div class="pull-right">
+        <input type="text" name="search" placeholder="Search..." style="height: 100%;">
+    </div>
+
+</div>
+
+

@@ -1,0 +1,24 @@
+﻿<div class=" navbar-inverse navbar-fixed-top ">
+    <div class="container" style="width: 100%;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Book Builder", "ProjectsList", "Project", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("DashBoard", "DashBoard", "Project")</li>
+                <li>@Html.ActionLink("Setting", "Setting", "Project")</li>
+                <li>@Html.ActionLink("Account Settings", "AccountSettings", "Home")</li>
+                <li>@Html.ActionLink("Projects List", "ProjectsList", "Project")</li>
+                <li>@Html.ActionLink("Editor", "Editor", "Project")</li>
+
+            </ul>
+            @Html.Partial("_Header");
+        </div>
+    </div>
+</div>

@@ -1,0 +1,378 @@
+﻿@{
+    ViewBag.Title = "Configure";
+    string path = "/App_Data/Book1/BookFiles";
+
+
+    DirectoryInfo directory1 = new DirectoryInfo(Server.MapPath(@"~\App_Data\Book1"));
+    List<FileInfo> files = directory1.GetFiles().ToList();
+    List<DirectoryInfo> directory = directory1.GetDirectories().ToList();
+}
+
+    <div class="container" id="main">
+        <div class="flash affix-top"></div>
+
+      
+        <!--Navigation bar-->
+        @Html.Partial("_MainTabMenu")
+
+       <!--Project-->
+        <div class="build-settings" style="display: block;">
+            <!--Title-->
+            <div class="row down40" >
+                <div class="col-md-4" >
+                    <h2>Title</h2>
+                </div>
+                <div class="col-md-8" style="padding-right: 0">
+                    <input type="text" class="down20 " style="height:100%; padding-right:0; width:100%; " placeholder="Title for Title Page or Site Title" id="project-title-input" value="my new project">
+                    <p>Set the title of your project which will be used in theme layouts. <a href="http://docs.BB.com/ch07.html">See Documentation</a>.</p>
+                </div>
+            </div>
+            
+            <!--Files-->
+            <div class="row down20">
+                <div class="span12">
+                    <h2>Files</h2>
+                    <p>Select the files from your project to include in builds. You can rearrange the files in <em>Build Contents</em> by dragging. Supported file extensions are <strong>.html</strong>, <strong>.xhtml</strong>, <strong>.xml</strong> <strong>.md</strong>, <strong>.markdown</strong>, <strong>.asciidoc</strong> &amp; <strong>.asc</strong>. All other files have been hidden from this view.</p>
+                </div>
+            </div>
+            
+            <!--File Browser-->
+            <div class="row" id="file-browser">
+                
+                <!--Left Tree-->
+                <div class="col-md-4">
+                    <div class="box">
+                        <div class="box-top">
+                            <div class="path source-path"><ul class="path"><li><a href=""><i class="glyphicons home"></i></a><span class="path-separator">/</span></li></ul></div>
+                        </div>
+                        <div class="source-files">
+                            <div class="tree-list list" style="max-height: 400px;">
+                               
+                                @{
+                                    foreach (var file in files)
+                                    {
+                                        <div class="list-item file-list-item ">
+
+                                            <a href=@file class="editor-link">
+                                                <i class="icon-file-text-alt"></i> &nbsp;@file
+                                            </a>
+                                            <a class="pull-right"><i class="add-it list-icon icn-round glyphicons plus"></i></a>
+                                        </div>
+                                    }
+
+                                    foreach (var dir in directory)
+                                    {
+                                        <div class="list-item folder-list-item">
+
+                                            <a href="#" class="list-padding">
+                                                <i class="icon-folder-open-alt"></i> &nbsp;@dir
+                                                <i class="icon-angle-right list-icon"></i>
+                                            </a>
+                                        </div>
+
+                                    }
+                                }
+                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--Right Tree-->
+                <div class="col-md-8" style="padding-right: 0">
+                    <div class="box">
+                        <div class="box-top">
+                            <h3>Build Contents</h3>
+                        </div>
+                        <li class="build-files">
+                        <div class="path"></div>
+                        <ul class="tree-list list" style="max-height: 400px;">
+                          
+                            @{
+                                foreach (var file in files)
+                                {
+                                    <li class="list-item file-list-item has-icon-outside-link" draggable="true">
+
+                                        <a href=@file class="editor-link">
+                                            <i class="icon-file-text-alt"></i> &nbsp;@file
+                                        </a>
+                                        <a class="pull-right">
+                                            <i class="remove list-icon icn-round glyphicons minus"></i>
+                                        </a>
+                                        <i class="glyphicons show_lines handle pull-right"></i>
+                                    </li>
+                                }
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!--Formats-->
+        <div class="row down40">
+            <div class="col-md-3">
+                <h2>Formats</h2>
+            </div>
+            <div class="col-md-9">
+                <div id="format-tabs" class="row tabs-container down20">
+                    <ul class="tabs horizontal span9">
+                        <li data-target="#pdf" class="tab-anchor" style="width: 25%;">
+                            PDF
+                        </li>
+                        <li data-target="#epub" class="tab-anchor" style="width: 25%;">
+                            EPUB
+                        </li>
+
+                        <li data-target="#mobi" class="tab-anchor" style="width: 25%;">
+                            MOBI
+                        </li>
+                        <li data-target="#html" class="tab-anchor active" style="width: 25%;">
+                            HTML
+                        </li>
+                    </ul>
+                    <!--hidden-->
+                    <div class="tab-content span9 " id="format-settings">
+                        <div class="box box-white">
+                            <div class="box-inner">
+                                <div class="tab-pane" id="pdf">
+                                    <form id="pdf-form">
+                                        <h4>PDF Settings</h4>
+
+                                        <label for="pdf-print-version-input">
+                                            <input class="format-option" type="radio" name="version" value="print" id="pdf-print-version-input">
+                                            Print version
+                                        </label>
+                                        <span class="help-block">A print version PDF is optimized for printing. It contains crop marks, print-quality image sizes, and  generates hyperlinks with the actual URL of the hyperlink next to the link title.</span>
+
+                                        <label for="pdf-web-version-input">
+                                            <input class="format-option" type="radio" name="version" value="web" id="pdf-web-version-input">
+                                            Web version
+                                        </label>
+                                        <span class="help-block">A web version PDF is optimized for reading on digital devices. It contains reduced image sizes and   active hyperlinks.</span>
+
+                                        <label for="pdf-generate-index-input">
+                                            <input class="format-option" type="checkbox" name="index" id="pdf-generate-index-input">
+                                            Generate Index
+                                        </label>
+                                        <span class="help-block">This will generate a traditional back-of-the-book index in the PDF. You will need to <a href="http://docs.atlas.oreilly.com/ch06.html#index" target="_blank">annotate your content with index terms</a> to specify where to place the index. If any of these tags are missing, the index will not be generated.</span>
+
+                                        <label for="pdf-generate-toc-input">
+                                            <input class="format-option" type="checkbox" name="toc" id="pdf-generate-toc-input">
+                                            Generate Table of Contents
+                                        </label>
+                                        <span class="help-block">This will generate a table of contents in the PDF. You will need to <a href="http://docs.atlas.oreilly.com/ch06.html#toc" target="_blank">add a  navigation tag in your project's content</a> to specify where to place the TOC. If this tag is missing, the TOC will not be generated.</span>
+
+                                        <label for="pdf-syntaxhighlighting">
+                                            <input class="format-option" type="checkbox" name="syntaxhighlighting" id="pdf-syntaxhighlighting">
+                                            Syntax Highlighting
+                                        </label>
+                                        <span class="help-block">This will color-code the text in code listings based on semantics (e.g., comments in blue, strings in orange, etc.)</span>
+
+                                        <label for="pdf-show_comments">
+                                            <input class="format-option" type="checkbox" name="show_comments" id="pdf-show_comments">
+                                            Show Comments
+                                        </label>
+                                        <span class="help-block">Check this box to show comments made by collaborators in the output.</span>
+
+                                        <p><a href="http://docs.atlas.oreilly.com/ch06.html#formatspdf" target="_blank">Read more about the PDF format</a></p>
+                                    </form>
+
+                                </div>
+                                <div class="tab-pane" id="epub">
+                                    <h4>EPUB Settings</h4>
+                                    <form id="epub-form">
+                                        <label for="epub-generate-index-input">
+                                            <input class="format-option" type="checkbox" name="index" id="epub-generate-index-input">
+                                            Generate Index
+                                        </label>
+                                        <span class="help-block">This will generate a traditional back-of-the-book index in the EPUB. You will need to <a href="http://docs.atlas.oreilly.com/ch06.html#index" target="_blank">annotate your content with index terms</a> to specify where to place the index. If any of these tags are missing, the index will not be generated.</span>
+                                        <label for="epub-generate-toc-input">
+                                            <input class="format-option" type="checkbox" name="toc" id="epub-generate-toc-input">
+                                            Generate Table of Contents
+                                        </label>
+                                        <span class="help-block">This will generate a table of contents in the EPUB. You will need to <a href="http://docs.atlas.oreilly.com/ch06.html#toc" target="_blank">add a  navigation tag in your project's content</a> to specify where to place the TOC. If this tag is missing, the TOC will not be generated.</span>
+                                        <label for="epub-check-input">
+                                            <input class="format-option" type="checkbox" name="epubcheck" id="epub-check-input">
+                                            Run epubcheck
+                                        </label>
+                                        <span class="help-block">Check to run the final EPUB through an epubcheck script to confirm validity.</span>
+
+                                        <label for="epub-syntaxhighlighting">
+                                            <input class="format-option" type="checkbox" name="syntaxhighlighting" id="epub-syntaxhighlighting">
+                                            Syntax Highlighting
+                                        </label>
+                                        <span class="help-block">This will color-code the text in code listings based on semantics (e.g., comments in blue, strings in orange, etc.)</span>
+
+                                        <label for="epub-show_comments">
+                                            <input class="format-option" type="checkbox" name="show_comments" id="epub-show_comments">
+                                            Show Comments
+                                        </label>
+                                        <span class="help-block">Check this box to show comments made by collaborators in the output.</span>
+
+                                        <p><a href="http://docs.atlas.oreilly.com/ch06.html#formatsepub" target="_blank">Read more about the EPUB format</a></p>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="mobi">
+                                    <h4>MOBI Settings</h4>
+                                    <form id="mobi-form">
+                                        <label for="mobi-generate-index-input">
+                                            <input class="format-option" type="checkbox" name="index" id="mobi-generate-index-input">
+                                            Generate Index
+                                        </label>
+                                        <span class="help-block">This will generate a traditional back-of-the-book index in the MOBI. You will need to <a href="http://docs.atlas.oreilly.com/ch06.html#index" target="_blank">annotate your content with index terms</a> to specify where to place the index. If any of these tags are missing, the index will not be generated.</span>
+                                        <label for="mobi-generate-toc-input">
+                                            <input class="format-option" type="checkbox" name="toc" id="mobi-generate-toc-input">
+                                            Generate Table of Contents
+                                        </label>
+                                        <span class="help-block">This will generate a table of contents in the MOBI. You will need to <a href="http://docs.atlas.oreilly.com/ch06.html#toc" target="_blank">add a  navigation tag in your project's content</a> to specify where to place the TOC. If this tag is missing, the TOC will not be generated.</span>
+
+                                        <label for="mobi-syntaxhighlighting">
+                                            <input class="format-option" type="checkbox" name="syntaxhighlighting" id="mobi-syntaxhighlighting">
+                                            Syntax Highlighting
+                                        </label>
+                                        <span class="help-block">This will color-code the text in code listings based on semantics (e.g., comments in blue, strings in orange, etc.)</span>
+
+                                        <label for="html-show_comments">
+                                            <input class="format-option" type="checkbox" name="show_comments" id="html-show_comments">
+                                            Show Comments
+                                        </label>
+                                        <span class="help-block">Check this box to show comments made by collaborators in the output.</span>
+
+                                        <p><a href="http://docs.atlas.oreilly.com/ch06.html#formatsmobi" target="_blank">Read more about the MOBI format</a></p>
+                                    </form>
+                                </div>
+                                <div class="tab-pane active" id="html">
+                                    <h4>HTML Settings</h4>
+                                    <form id="html-form">
+                                        <label for="html-generate-index-input">
+                                            <input class="format-option" type="checkbox" name="index" id="html-generate-index-input">
+                                            Generate Index
+                                        </label>
+                                        <span class="help-block">This will generate a traditional back-of-the-book index in the HTML. You will need to <a href="http://docs.atlas.oreilly.com/ch06.html#index" target="_blank">annotate your content with index terms</a> to specify where to place the index. If any of these tags are missing, the index will not be generated.</span>
+
+                                        <label for="html-generate-toc-input">
+                                            <input class="format-option" type="checkbox" name="toc" id="html-generate-toc-input">
+                                            Generate Table of Contents
+                                        </label>
+                                        <span class="help-block">This will generate a table of contents in the HTML. You will need to <a href="http://docs.atlas.oreilly.com/ch06.html#toc" target="_blank">add a  navigation tag in your project's content</a> to specify where to place the TOC. If this tag is missing, the TOC will not be generated.</span>
+                                        <p>See the <a href="http://docs.atlas.oreilly.com/ch06.html#formatshtml" target="_blank">documentation</a> for HTML formats to include custom scripts and stylesheets in the <code>atlas.json</code> file.</p>
+
+                                        <label for="html-syntaxhighlighting">
+                                            <input class="format-option" type="checkbox" name="syntaxhighlighting" id="html-syntaxhighlighting">
+                                            Syntax Highlighting
+                                        </label>
+                                        <span class="help-block">This will color-code the text in code listings based on semantics (e.g., comments in blue, strings in orange, etc.)</span>
+
+                                        <label for="html-show_comments">
+                                            <input class="format-option" type="checkbox" name="show_comments" id="html-show_comments">
+                                            Show Comments
+                                        </label>
+                                        <span class="help-block">Check this box to show comments made by collaborators in the output.</span>
+
+                                        <label for="html-consolidated-input">
+                                            <input class="format-option" type="checkbox" name="consolidated" id="html-consolidated-input">
+                                            Consolidate as One HTML File
+                                        </label>
+                                        <span class="help-block">This option will combine all files into a single output file.</span>
+
+                                        <p><a href="http://docs.atlas.oreilly.com/ch06.html#formatshtml" target="_blank">Read more about the HTML format</a></p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Themes-->
+        <div class="row down40">
+                <div class="col-md-3">
+                    <h2>Themes</h2>
+                </div>
+            <div class="col-md-9" style="padding-right: 0">
+                <div id="theme-info">
+                    <div class="box" id="theme-selection">
+                        <div class="box-inner">
+
+                            <i class="icn-round icn-success glyphicons ok_2"></i> <strong>BB/atlas_tech1c_theme</strong> theme selected.
+                            &nbsp;<a href="https://BB.com/demo_book/my-new-project/configure/branch/demo_book-at30115127453#" class="theme-selection-btn btn">Change Theme</a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--hidden Browser-->
+                <div class="box-inner" id="theme-browser">
+                    <div class="box box-white">
+                        <div class="box-inner">
+                            <div class="row-fluid" id="projects-edit">
+                                <div class="span 12">
+                                    <p>Choose a design for your book. You can pick from the built-in themes below, or specify a path to a custom theme. The built-in themes define styling for all output formats: print, ebook, and HTML.</p>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div class="templategroup">
+                                        <label><input id="no-theme-radio" type="radio" value="" name="theme"> No Theme</label>
+                                        <p>Build using only the layout and stylesheets in your repository.</p>
+                                        <p><a target="_blank" href="http://docs.BB.com/ch06.html">Interested in creating a new theme? Learn more here.</a></p>
+                                    </div>
+                                    <div class="templategroup">
+                                        <label><input id="custom-theme-radio" type="radio" value="custom-theme" name="theme"> Custom</label>
+                                        <p>Choose a custom template to apply to your book. For themes hosted in Atlas, enter a path to the project (e.g. "atlasuser/atlasproject"). For themes hosted as public repositories on Github, enter the full Git URL.</p>
+                                        <form class="form-inline">
+                                            <input id="custom-theme-field" type="text" class="span8" placeholder="Ex: https://github.com/oreillymedia/atlas_tech1c_theme.git" name="custom-theme">
+                                        </form>
+                                        <p><a target="_blank" href="https://github.com/BB/atlas_styling_and_themes">Interested in creating a new theme? Learn more here.</a></p>
+                                    </div>
+                                    <div class="templategroup">
+                                        <label><input type="radio" value="BB/atlas_trade_theme" name="theme"> Trade Book (e.g., fiction, prose, essays)</label>
+                                        <div class="row-fluid">
+                                            <div class="span4 sampleimg">
+                                                <img alt="Trade" src="./Project Configuration   demo_book my-new-project   O'Reilly Atlas_files/trade-2cf32db290a2de2a1300fbcb14133227.png">
+                                            </div>
+                                            <div class="span8">
+                                                <ul>
+                                                    <li><strong>PDF page size:</strong> 5.5in by 8.5in.</li>
+                                                    <li><strong>Great for:</strong> prose-oriented books, novels, memoirs, essays, etc.</li>
+                                                </ul>
+                                                <p>Features a clean, sparse design so readers can focus on your words in a distraction-free environment. PDF and print formats feature a generally linear layout, automatic chapter and page numbering, and styling for all major book elements. The other ebook formats maintain the same major design elements that you'll see in the PDF, but are optimized to work on ereaders and tablets. The HTML format also includes page navigation and a running header, so you can create a fully-functioning website with no extra coding needed.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="templategroup">
+                                        <label><input type="radio" value="oreillymedia/atlas_tech1c_theme" name="theme"> Technical Book (e.g., reference, textbooks)</label>
+                                        <div class="row-fluid">
+                                            <div class="span4 sampleimg">
+                                                <img alt="Technical" src="./Project Configuration   demo_book my-new-project   O'Reilly Atlas_files/technical-d53e2069b35d0e8c537c80b46148e273.png">
+                                            </div>
+                                            <div class="span8">
+                                                <ul>
+                                                    <li><strong>PDF page size:</strong> 7in by 9.19in.</li>
+                                                    <li><strong>Great for:</strong> reference-style books, software documentation, up-and-running guides, technical books, text books, code-heavy projects.</li>
+                                                </ul>
+                                                <p>A clean design that uses the full page, including styling for margin notes, bold sidebars clearly set off from the text, and figures with captions in the margin. PDF and print formats feature a page with a generally linear layout, automatic chapter and page numbering, and styling for all major book elements. The other ebook formats maintain the same major design elements that you'll see in the PDF, but are optimized to work on ereaders and tablets. The HTML format also includes page navigation and a running header, so you can create a fully-functioning website with no extra coding needed.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        
+        <!--Save button-->
+        <div class="row">
+            <div class="span4 pull-right" id="save-settings-button-wrap">
+                <a class="block align-center btn-medium action default btn" href="#">Save Settings</a>
+            </div>
+        </div>
+
+   
+   </div>
+

@@ -1,0 +1,28 @@
+﻿
+@using System.Diagnostics
+@model List<MvcApplication1.DbModels.Project>
+<div class="box" id="project-list">
+    <!-- <div class="box-top"></div> -->
+    <div class="list list-gray list-large">
+
+        <div>
+            @{
+                foreach (var project in Model)
+                {
+                    string prj = project.Path;
+                    //string hrefto = project.UserLogin + "/" + prj;
+                    const string hrefto = "DashBoard";
+                    <div class="list-item   ">
+                        <input type="checkbox" id="checkid" />
+
+                        <a style="display:inline-block" for="checkid" href=@hrefto class="list-padding">
+                            @project.Title
+                            <i class="icon-angle-right list-icon has-icon-outside-link hidden"></i>
+                        </a>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>

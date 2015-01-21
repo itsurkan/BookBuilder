@@ -1,0 +1,55 @@
+﻿@model MvcApplication1.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+<div class="register">
+    <div class="col-sm-5 down50">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-lock"></span> @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserMail, new { @class = "col-sm-3 control-label" })
+                        @Html.TextBoxFor(m => m.UserMail, new { @class = "form-control", type = "email", required = "required" })
+                        @Html.ValidationMessageFor(m => m.UserMail)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-sm-3 control-label" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", required = "required " })
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                    <div class="form-group">
+
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "checkbox-inline" })
+                        @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                    </div>
+                    <div class="form-group last">
+                        <div class="col-sm-offset-3 col-sm-9 ">
+                            <button type="submit" class="btn btn-success btn-sm" value="Log in">
+                                Sign in
+                            </button>
+                            <button type="reset" class="btn btn-default btn-sm">
+                                Reset
+                            </button>
+                        </div>
+                        <div class="col-sm-offset-3  col-sm-9" style="padding: 15px">
+                            <button type="button" class="btn facebook   btn-sm  ">Facebook</button>
+                            <button type="button" class="btn google  btn-big btn-sm">Google</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+ @section Scripts {
+     @Scripts.Render("~/bundles/jqueryval");
+ }

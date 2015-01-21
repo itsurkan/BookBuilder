@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Project";
+    string path = "/App_Data/Book1";
+
+
+    DirectoryInfo directory1 = new DirectoryInfo(Server.MapPath(@"~\App_Data\Book1"));
+    List<FileInfo> files = directory1.GetFiles().ToList();
+    List<DirectoryInfo> directory = directory1.GetDirectories().ToList();
+  
+}
+
+<body>
+    <div class="container" id="main">
+        <div class="flash affix-top"></div>
+
+
+        <!--Select box and search-->
+        <div id="projects-bar" class="down30 clearfix">
+            <!--User-->
+            <div class="pull-left select-dropdown hidden">
+                <select class="media-list" style="width: 75%;">
+
+                    <option>
+                        all
+                    </option>
+
+                    <option>
+                        demo_book
+                    </option>
+
+                </select>
+
+            </div>
+          
+              <div id="projects-sort" class="pull-left select-dropdown">
+                  <select class="media-list" onchange='submit();'>
+
+                      <option value="created">Sort by Created </option>
+                      <option value="name"> Sort by Name </option>
+                      <option value="updated">Sort by Updated  </option>
+
+                  </select>
+
+            </div>
+            <div class="pull-right">
+                <input type="text" name="search" placeholder="Search..." style="height: 100%;">
+            </div>
+        </div>
+
+        <!--Main files bar-->
+        <div class="row down20" id="project-show">
+            <div class="span7">
+
+                <div class="heading-split">
+                    <h2>Files</h2>
+                    <div class="pull-right" id="project-branches"></div>
+                </div>
+
+                <div id="project-path">
+                    <ul class="path">
+                        <li><a href=""><i class="glyphicons home"></i></a><span class="path-separator">/</span></li>
+                    </ul>
+                </div>
+
+                <div class="box">
+
+                    <!--Search box-->
+                    <div class="box-top" id="project-search">
+                        <div class="search">
+                            <input type="text" name="search" class="search-term" placeholder="Search..." style="height:100%;">
+                        </div>
+                    </div>
+
+                    <!--Project files-->
+                    <div id="project-files">
+                        <div class="tree-list list list-medium list-gray">
+
+                            <div class="list-item file-list-item has-icon-outside-link">
+                                <a href="https://BB.com/demo_book/my-new-project/editor/master/02-copyright.html" class="list-padding"><i class="icon-file-text-alt"></i> &nbsp;02-copyright.html</a>
+                                <i class="action icon-gear icn-round list-icon"></i>
+                            </div>
+                            @{
+                                foreach (var file in files)
+                                {
+                                    <div class="list-item file-list-item has-icon-outside-link">
+
+                                        <a href=@file class="list-padding"><i class="icon-file-text-alt"></i> &nbsp;@file</a>
+                                        <i class="action icon-gear icn-round list-icon"></i>
+                                    </div>
+                                }
+                                
+                                foreach (var dir in directory)
+                                {
+                                    <div class="list-item file-list-item has-icon-outside-link">
+
+                                        <a href="#" class="list-padding">
+                                            <i class="icon-folder-open-alt"></i> &nbsp;@dir
+                                            <i class="icon-angle-right list-icon"></i>
+                                        </a>
+                                        <i class="action icon-gear icn-round list-icon"></i>
+                                    </div>
+                                
+                                }
+                            }
+
+
+                        </div>
+                    </div>
+
+                    <!--Box bottom-->
+                    <div class="box-bottom" id="project-control-buttons">
+                        <div class="file-controls">
+                            <div id="file_controls_inner" class="">
+                                <div class="upload-view">
+                                    <div id="upload_zone">
+                                        Drag a file here to upload
+                                    </div>
+                                    <input id="fileUploadInput" type="file" style="display:none">
+                                </div>
+                                <div class="controls">
+                                    <form class="new_file_form">
+                                        <input class="file_name" value="file.html" type="text">
+                                    </form>
+                                    <form class="new_dir_form">
+                                        <input class="dir_name" value="folder/" type="text">
+                                    </form>
+                                    <div class="file-control-buttons">
+                                        <button class="create_btn btn"><span>Create </span> New File</button>
+                                        <button class="create_dir_btn btn"><span>Create </span> New Folder</button>
+                                        <button class="cancel_btn btn btn-small"><i class="icon-remove"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
