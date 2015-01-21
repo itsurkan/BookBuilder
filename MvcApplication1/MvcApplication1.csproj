@@ -223,9 +223,9 @@
     <Content Include="App_Data\aspnet-MvcApplication1-20141222224613_log.ldf">
       <DependentUpon>aspnet-MvcApplication1-20141222224613.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\SQLQuery1.sql" />
-    <Content Include="App_Data\SQLQuery2.sql" />
-    <Content Include="App_Data\SQLQuery3.sql" />
+    <Content Include="Requests\SQLQuery1.sql" />
+    <Content Include="Requests\SQLQuery2.sql" />
+    <Content Include="Requests\SQLQuery3.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.min.css" />
