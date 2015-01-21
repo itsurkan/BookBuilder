@@ -19,7 +19,7 @@ namespace MvcApplication1
     public class MvcApplication : System.Web.HttpApplication
     {
         public static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        public static DataClasses1DataContext RepoContext = new DataClasses1DataContext();
+        public static DataClasses1DataContext db = new DataClasses1DataContext();
 
         protected void Application_Start()
         {
@@ -32,7 +32,7 @@ namespace MvcApplication1
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-        }
+       }
 
         public void test()
         {

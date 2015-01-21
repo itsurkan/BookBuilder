@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using MvcApplication1.Classes;
 using MvcApplication1.DbModels;
 using  PagedList;
@@ -13,7 +14,7 @@ namespace MvcApplication1.Controllers
 { 
     public class ProjectController : Controller
     {
-        public DataClasses1DataContext db = new DataClasses1DataContext();
+        public DataClasses1DataContext db =MvcApplication.db;
         
         [HttpGet]
         public ViewResult ProjectsList(string sortOrder, string currentFilter, string searchString, int? page)
@@ -55,7 +56,6 @@ namespace MvcApplication1.Controllers
                     projects = projects.OrderBy(s => s.Title);
                     break;
             }
-
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(projects.ToPagedList(pageNumber, pageSize));
@@ -70,12 +70,25 @@ namespace MvcApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewProject()
-        {
-            ViewBag.Message = "New Project.";
-
-            return View();
-        }
+        [ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "LastName, FirstMidName, EnrollmentDate")]Student student)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            db.Students.Add(student);
+        //            db.SaveChanges();
+        //            return RedirectToAction("Index");
+        //        }
+        //    }
+        //    catch (RetryLimitExceededException /* dex */)
+        //    {
+        //        //Log the error (uncomment dex variable name and add a line here to write a log.
+        //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+        //    }
+        //    return View(student);
+        //}
 
         public ActionResult DashBoard()
         {

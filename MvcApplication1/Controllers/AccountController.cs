@@ -83,7 +83,7 @@ namespace MvcApplication1.Controllers
             MvcApplication.logger.Info("Try registration at {0}",DateTime.Now);
             if (ModelState.IsValid)
             {
-                MvcApplication.RepoContext.UserProfiles.InsertAllOnSubmit(new UserProfile[]
+                MvcApplication.db.UserProfiles.InsertAllOnSubmit(new UserProfile[]
                 {
                     new UserProfile
                     {
@@ -93,7 +93,7 @@ namespace MvcApplication1.Controllers
                         Role = 5
                     }
                 });
-                MvcApplication.RepoContext.SubmitChanges();
+                MvcApplication.db.SubmitChanges();
                 MvcApplication.logger.Info("Set into DB new user - login => {0}, mail => {1}, password => {2}",
                     model.UserLogin,model.UserMail, model.Password);
                 WebSecurity.UserLogin = model.UserLogin;

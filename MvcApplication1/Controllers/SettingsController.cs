@@ -13,7 +13,7 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult UserSettings()
         {
-            return View(MvcApplication.RepoContext.UserProfiles.FirstOrDefault(x=>x.Login == WebSecurity.UserLogin));
+            return View(MvcApplication.db.UserProfiles.FirstOrDefault(x=>x.Login == WebSecurity.UserLogin));
         }
 
     }

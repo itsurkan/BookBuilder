@@ -26,7 +26,7 @@ namespace MvcApplication1.Filters
         {
             try
             {
-                var user = MvcApplication.RepoContext.UserProfiles.FirstOrDefault(u => u.Mail == mail && u.Password == pass);
+                var user = MvcApplication.db.UserProfiles.FirstOrDefault(u => u.Mail == mail && u.Password == pass);
                 if (user != null)
                 {
                     UserLogin = user.Login;
