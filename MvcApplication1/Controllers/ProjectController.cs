@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
@@ -14,9 +16,12 @@ namespace MvcApplication1.Controllers
 { 
     public class ProjectController : Controller
     {
-        public DataClasses1DataContext db =MvcApplication.db;
-        
+        public DataClasses1DataContext RepoContext = MvcApplication.db;
+
+        //
+        // GET: /Projects/
         [HttpGet]
+       
         public ViewResult ProjectsList(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -34,8 +39,7 @@ namespace MvcApplication1.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var projects = from s in db.Projects
-                           select s;
+            var projects = from s in RepoContext.Projects where s.UserLogin == "root" select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 projects = projects.Where(s => s.Title.Contains(searchString)
@@ -59,62 +63,34 @@ namespace MvcApplication1.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(projects.ToPagedList(pageNumber, pageSize));
-       
+
         }
 
+
+        [HttpGet]
         public ActionResult NewProject()
         {
-            ViewBag.Message = "New Project.";
-
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("NewProject")]
         [ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "LastName, FirstMidName, EnrollmentDate")]Student student)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            db.Students.Add(student);
-        //            db.SaveChanges();
-        //            return RedirectToAction("Index");
-        //        }
-        //    }
-        //    catch (RetryLimitExceededException /* dex */)
-        //    {
-        //        //Log the error (uncomment dex variable name and add a line here to write a log.
-        //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-        //    }
-        //    return View(student);
-        //}
-
-        public ActionResult DashBoard()
+        public ActionResult Create([Bind(Include = "Title, Description")]Projects projects)
         {
-            ViewBag.Message = "DashBoard.";
-
-            return View();
-        }
-     
-        public ActionResult Configure()
-        {
-            ViewBag.Message = "Configuration Page.";
-
-            return View();
-        }
-
-        public ActionResult Builds()
-        {
-            ViewBag.Message = "Builds Page.";
-
-            return View();
-        }
-
-        public ActionResult Review()
-        {
-            ViewBag.Message = "Builds Page.";
-
+            //try
+            //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        db.Students.Add(student);
+            //        db.SaveChanges();
+            //        return RedirectToAction("Index");
+            //    }
+            //}
+            //catch (RetryLimitExceededException /* dex */)
+            //{
+            //    //Log the error (uncomment dex variable name and add a line here to write a log.
+            //    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            //}
             return View();
         }
 
@@ -125,12 +101,74 @@ namespace MvcApplication1.Controllers
             return View();
         }
 
-        public ActionResult Editor()
+        [HttpGet]
+        public ActionResult Edit(int? id)
         {
-            ViewBag.Message = "Builds Page.";
+            MvcApplication.logger.Info("Edit title page {0}", DateTime.Now);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var project = (from p in RepoContext.Projects where p.Id == id select p).First();
+            MvcApplication.logger.Info("Edit title page exit {0}", DateTime.Now);
+          
+            return View(project);
 
-            return View();
         }
 
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(int? id)
+        {
+            MvcApplication.logger.Info("Edit title page click {0}", DateTime.Now);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var projecttoUpdate = (from p in RepoContext.Projects where p.Id == id select p).First();
+            if (TryUpdateModel(projecttoUpdate, "",
+               new string[] { "Title", "Descriprion" }))
+            {
+                try
+                {
+                    MvcApplication.logger.Info("Edit title page update action {0}", DateTime.Now);
+
+                    RepoContext.SubmitChanges();
+
+                    return RedirectToAction("ProjectsList");
+                }
+                catch (Exception e)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                    MvcApplication.logger.Info("Edit title page error {0}", DateTime.Now);
+
+                }
+                MvcApplication.logger.Info("Edit title page end{0}", DateTime.Now);
+
+            }
+            return View("EditProperties",projecttoUpdate);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete()
+        {
+            MvcApplication.logger.Info("Try to gelete {0}", DateTime.Now.TimeOfDay);
+          
+            //try
+            //{
+            //    Projects project =  (from p in RepoContext.Projects where p.Id == id select p).First();
+            //    //db.Projects.Remove();
+            //    RepoContext.SubmitChanges();
+            //}
+            //catch (Exception/* dex */)
+            //{
+            //    MvcApplication.logger.Info("Try to gelete exception {0}", DateTime.Now.TimeOfDay);
+            //    //Log the error (uncomment dex variable name and add a line here to write a log.
+            //    return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            //}
+            return RedirectToAction("ProjectsList", "Project");
+        }
     }
 }

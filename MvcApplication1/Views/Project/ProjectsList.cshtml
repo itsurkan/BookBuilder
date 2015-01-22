@@ -63,12 +63,15 @@
                                       
                                             <button class="btn align-right " style="float: right; margin: -5px 0px -5px 5px; ">
                                                 <i class="icon-edit"></i>
-                                                @Html.ActionLink("Delete", "Setting", new { id = project.Id })
+                                                @Html.ActionLink("Delete", "Setting","Project",
+                                                new { id = project.Id },
+                                                new {onclick="return confirm('Вы уверены?')"} )
                                             </button>
-                                        <button class="btn align-right " style="float: right; margin: -5px 0px -5px 5px ;">
-                                            <i class="icon-trash"></i>
-                                            @Html.ActionLink("Rename", "Configure", new { id = project.Id })
-                                        </button>
+                                            <button class="btn align-right " style="float: right; margin: -5px 0px -5px 5px ;">
+                                                <i class="icon-trash"></i>
+                                                @Html.ActionLink("Edit", "Edit",
+                                                new { id = project.Id })
+                                            </button>
                                         <i class="list-icon has-icon-outside-link " style="float: right;"></i>
                                         </div>
                                 
@@ -86,7 +89,7 @@
         <div class="col-md-3 span3 down10 " style="padding-left: 0px;">
             <div class="new-project-box" style="padding-left: 0px;">
                 <div class="btn btn-medium block align-center btn-link">
-                    @Html.ActionLink("New Project", "NewProject" )
+                    @Html.ActionLink("New Project", "NewProject","Project" )
                 </div>
             </div>
 

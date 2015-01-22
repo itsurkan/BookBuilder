@@ -3,7 +3,7 @@
     <div id="projects-sort" class="pull-left select-dropdown">
 
         <div>
-            @using (Ajax.BeginForm("ProjectsList", 
+            @using (Ajax.BeginForm("ProjectsList", "Project" ,
                     new AjaxOptions()
                     {
                         HttpMethod = "POST",
