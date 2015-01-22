@@ -16,7 +16,7 @@ namespace MvcApplication1.Controllers
 { 
     public class ProjectController : Controller
     {
-        public DataClasses1DataContext RepoContext = MvcApplication.db;
+        public Entities RepoContext = MvcApplication.db;
 
         //
         // GET: /Projects/
@@ -101,54 +101,7 @@ namespace MvcApplication1.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Edit(int? id)
-        {
-            MvcApplication.logger.Info("Edit title page {0}", DateTime.Now);
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var project = (from p in RepoContext.Projects where p.Id == id select p).First();
-            MvcApplication.logger.Info("Edit title page exit {0}", DateTime.Now);
-          
-            return View(project);
 
-        }
-
-        [HttpPost, ActionName("Edit")]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditPost(int? id)
-        {
-            MvcApplication.logger.Info("Edit title page click {0}", DateTime.Now);
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var projecttoUpdate = (from p in RepoContext.Projects where p.Id == id select p).First();
-            if (TryUpdateModel(projecttoUpdate, "",
-               new string[] { "Title", "Descriprion" }))
-            {
-                try
-                {
-                    MvcApplication.logger.Info("Edit title page update action {0}", DateTime.Now);
-
-                    RepoContext.SubmitChanges();
-
-                    return RedirectToAction("ProjectsList");
-                }
-                catch (Exception e)
-                {
-                    //Log the error (uncomment dex variable name and add a line here to write a log.
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                    MvcApplication.logger.Info("Edit title page error {0}", DateTime.Now);
-
-                }
-                MvcApplication.logger.Info("Edit title page end{0}", DateTime.Now);
-
-            }
-            return View("EditProperties",projecttoUpdate);
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -170,5 +123,66 @@ namespace MvcApplication1.Controllers
             //}
             return RedirectToAction("ProjectsList", "Project");
         }
+
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            MvcApplication.logger.Info("Edit title page {0}", DateTime.Now);
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var project = RepoContext.Projects.Find(id);
+
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+
+            MvcApplication.logger.Info("Edit title page exit {0}", DateTime.Now);
+
+            return View(project);
+
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(int? id)
+        {
+            MvcApplication.logger.Info("Edit title page click {0}", DateTime.Now);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var projecttoUpdate = RepoContext.Projects.Find(id);
+            if (TryUpdateModel(projecttoUpdate, "",
+               new string[] { "Title", "Descriprion" }))
+            {
+                try
+                {
+                    MvcApplication.logger.Info("Edit title page update action {0}", DateTime.Now);
+                    RepoContext.Entry(projecttoUpdate).State = EntityState.Modified;
+                    RepoContext.SaveChanges();
+                    return RedirectToAction("ProjectsList");
+                }
+                catch (Exception e)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                    MvcApplication.logger.Info("Edit title page error {0}", DateTime.Now);
+
+                }
+
+                MvcApplication.logger.Info("Edit title page end{0}", DateTime.Now);
+
+            }
+            return View(projecttoUpdate);
+        }
+
+
+
+
     }
 }

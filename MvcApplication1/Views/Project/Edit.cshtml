@@ -4,56 +4,43 @@
     ViewBag.Title = "Edit";
 }
 
-<div class="container" id="main">
-    <div class="flash affix-top"></div>
-    <div class="row down60" id="projects-new">
+<h2>Edit</h2>
 
-        <h1 class="span12">@ViewBag.Title</h1>
 
-        <form id="projects-new-form" class="span7">
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-                <div>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.Id)
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+    <div class="form-horizontal">
+        <h4>Edit project</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control col-md-12" } })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                    @*<div class="form-group">
-                        @Html.Label("Theme", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <div>@Html.RadioButtonFor(model => model.Settings.FirstAttribute, new { htmlAttributes = new { @class = "form-control" } })</div>
-                            <div>@Html.RadioButtonFor(model => model.Settings.FirstAttribute, new { htmlAttributes = new { @class = "form-control" } }) </div>
-                            <div>@Html.RadioButtonFor(model => model.Settings.Name, new { htmlattributes = new { @class = "form-control" } }) </div>
-                            @Html.ValidationMessageFor(model => model.Settings, "", new { @class = "text-danger" })
-                        </div>
-                    </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10 ">
-                            <input type="submit" value="Edit"  class="btn btn-medium block align-center btn-link" />
-                        </div>
-                    </div>
-                </div>
-            }
-
-        </form>
-
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
     </div>
-</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

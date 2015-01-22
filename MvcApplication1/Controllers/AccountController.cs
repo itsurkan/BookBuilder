@@ -81,17 +81,16 @@ namespace MvcApplication1.Controllers
             MvcApplication.logger.Info("Try registration at {0}",DateTime.Now);
             if (ModelState.IsValid)
             {
-                MvcApplication.db.UserProfiles.InsertAllOnSubmit(new UserProfile[]
+                MvcApplication.db.UserProfiles.Add(new UserProfile
                 {
-                    new UserProfile
-                    {
-                        Login = model.UserLogin,
-                        Mail = model.UserMail,
-                        Password = model.Password,
-                        Role = 5
-                    }
+                    Login = model.UserLogin,
+                    Mail = model.UserMail,
+                    Password = model.Password,
+                    Role = 5
                 });
-                MvcApplication.db.SubmitChanges();
+              
+
+                MvcApplication.db.SaveChanges();
                 MvcApplication.logger.Info("Set into DB new user - login => {0}, mail => {1}, password => {2}",
                     model.UserLogin,model.UserMail, model.Password);
                 WebSecurity.UserLogin = model.UserLogin;
