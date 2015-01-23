@@ -63,9 +63,8 @@
                                       
                                             <button class="btn align-right " style="float: right; margin: -5px 0px -5px 5px; ">
                                                 <i class="icon-edit"></i>
-                                                @Html.ActionLink("Delete", "Setting","Project",
-                                                new { id = project.Id },
-                                                new {onclick="return confirm('Вы уверены?')"} )
+                                                @Html.ActionLink("Delete", "Delete",
+                                                new { id = project.Id })
                                             </button>
                                             <button class="btn align-right " style="float: right; margin: -5px 0px -5px 5px ;">
                                                 <i class="icon-trash"></i>

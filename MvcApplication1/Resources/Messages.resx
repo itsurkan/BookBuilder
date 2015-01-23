@@ -132,4 +132,10 @@
   <data name="RegisterModel_UserPass_Length" xml:space="preserve">
     <value>Please enter at last 6 symbols</value>
   </data>
+  <data name="UnableSaveChanges" xml:space="preserve">
+    <value>"Unable to save changes. Try again, and if the problem persists, see your system administrator."</value>
+  </data>
+  <data name="Unable_to_save_changes" xml:space="preserve">
+    <value>Unable to save changes. Try again, and if the problem persists see your system administrator.</value>
+  </data>
 </root>
