@@ -432,6 +432,7 @@
     <Content Include="Views\Shared\_PartialBars.cshtml" />
     <Content Include="Views\Project\Edit.cshtml" />
     <Content Include="Views\Project\Delete.cshtml" />
+    <Content Include="Views\Shared\_ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
