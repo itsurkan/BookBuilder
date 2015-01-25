@@ -26,7 +26,7 @@ namespace MvcApplication1.Filters
         {
             try
             {
-                var user = MvcApplication.db.UserProfiles.FirstOrDefault(u => u.Mail == mail && u.Password == pass);
+                var user = MvcApplication.RepoContext.UserProfiles.FirstOrDefault(u => u.Mail == mail && u.Password == pass);
                 if (user != null)
                 {
                     UserLogin = user.Login;
@@ -45,14 +45,19 @@ namespace MvcApplication1.Filters
                 }
                 else
                 {
-                    tryAgain = true;
-                    MvcApplication.logger.Info("Throw error");
+                    MvcApplication.logger.Error("Throw error");
                     throw e;
                 }
+                tryAgain = true;
             }
             return false;
         }
 
+        /// <summary>
+        /// If we need one more time check user call this static method to see if user avilable now
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
         public static bool CheckUserLogin(string location)
         {
             if (WebSecurity.UserLogin == null)

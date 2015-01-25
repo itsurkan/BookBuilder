@@ -7,7 +7,7 @@ namespace MvcApplication1.Classes
 {
     public static class DictionaryTranslit
     {
-        static Dictionary<string, string> words = new Dictionary<string, string>(); 
+        public static Dictionary<string, string> words = new Dictionary<string, string>(); 
           static DictionaryTranslit()
           {
             words.Add("а", "a");

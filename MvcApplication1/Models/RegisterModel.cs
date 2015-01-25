@@ -16,11 +16,12 @@ namespace MvcApplication1.Models
         public string UserMail { get; set; }
 
         [Required]
-        [StringLength(50000, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "RegisterModel_UserPass_Length", MinimumLength = 6)]
+        [StringLength(50000, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "Password_Length", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = @"Password")]
         public string Password { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = @"Confirm password")]
         [Compare("Password", ErrorMessageResourceType = typeof(Messages),ErrorMessageResourceName = "RegisterModel_UserPass_Compare")]

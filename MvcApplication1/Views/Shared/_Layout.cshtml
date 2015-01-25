@@ -5,36 +5,21 @@
 <head>
     <meta charset="utf-8" />
 
-    @*//todo видалити ці вкладення якщо файли так і не будуть знайдені*@
     <title>@ViewBag.Title - Book Builder</title>
-    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-
+    
     <link href="/Content/bootstrap.min.css" media="all" rel="stylesheet" type="text/css">
-  
     <link href="/Content/editor.css" media="all" rel="stylesheet" type="text/css">
     <link href="/Content/editorAditional.css" media="all" rel="stylesheet" type="text/css">
     <link href="/Content/Site.css" media="all" rel="stylesheet" type="text/css">
     <link href="/Content/application.css" media="all" rel="stylesheet" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
 
+   
     <script type="text/javascript">  var CKEDITOR_BASEPATH = 'https://d32xvvb5lxy7xi.cloudfront.net/assets/ckeditor4dot4dot1-June4/';</script>
-    <script type="text/javascript" async="" src="/Scripts/BuildIn/analytics.min.js"></script>
-    <script type="text/javascript" src="/Scripts/BuildIn/first.js"> </script>
-    <script type="text/javascript" src="/Scripts/BuildIn/second.js">  </script>
-
-
-    <script src="/Scripts/App/libraries.js" type="text/javascript"></script>
-    <script src="/Scripts/App/application.js" type="text/javascript"></script>
-    <script src="/Scripts/App/editors.js" type="text/javascript"></script>
-
-    <script src="/Scripts/App/config.js" type="text/javascript"></script>
-    <script src="/Scripts/App/en.js" type="text/javascript"></script>
-    <script src="/Scripts/App/style.js" type="text/javascript"></script>
-
+    @Scripts.Render("~/Scripts/javascripts")
 
 </head>
     <body>
@@ -47,59 +32,6 @@
             <div class="down20"></div>
             @RenderBody()
         </section>
-
-
-        @*//todo перенести це у сторінку (забрати з лайаута)*@ 
-        @* <div class="ha-footer ha-footer-alone">
-            <div class="ha-container ha-inner-container">
-                <div class="ha-layout-1-3">
-                    <div class="footer-logo">
-                        <a href="http://htmlacademy.ru"><img src="/themes/htmlacademy/img/logo.png" width="140" height="36" title="HTML Academy" alt="HTML Academy"></a>
-                    </div>
-
-                    <a class="ha-social" href="http://vk.com/" target="_blank" title="ВКонтакте">В</a>
-                    <a class="ha-social" href="http://www.facebook.com/" target="_blank" title="Facebook">f</a>
-                    <a class="ha-social" href="http://twitter.com/" target="_blank" title="Twitter">T</a>
-
-                    <span class="ha-copy">© 2014 HTML Academy</span>
-                </div>
-                <div class="ha-layout-2-3">
-                    <div class="ha-footer-list">
-                        <div class="ha-footer-list-block">
-                            <h3>Обучение</h3>
-                            <a href="/#basic">Базовые курсы</a><br>
-                            <a href="#advanced">Продвинутые курсы</a><br>
-                            <a href="/">Туториалы</a><br>
-                            <a href="/">Интенсив</a>
-                        </div>
-
-                        <div class="ha-footer-list-block">
-                            <a href="">Карта обучения</a><br>
-                            <a href="">Рейтинг</a><br>
-                            <a href="">Достижения</a><br>
-                            <a href="">Книжная полка</a>
-                        </div>
-
-                        <div class="ha-footer-list-block">
-                            <h3>Личный кабинет</h3>
-                            <a href="Профиль</a><br>
-                            <a href="">Подписка</a>
-                        </div>
-
-                        <div class="ha-footer-list-block">
-                            <h3>О нас</h3>
-                            <a href="">Форум</a><br>
-                            <a href="">Блог</a><br>
-                            <a href="">Рассылка</a><br>
-                            <a href="">Контакты</a>
-                        </div>
-
-                        <br clear="both">
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
     </body>

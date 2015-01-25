@@ -2,27 +2,29 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 using System.Xml.Linq;
 using MvcApplication1.Classes;
 using MvcApplication1.DbModels;
 using  PagedList;
 using PagedList.Mvc;
+using MvcApplication1.Filters;
 
 namespace MvcApplication1.Controllers
-{ 
+{
+    [Authorize]
     public class ProjectController : Controller
     {
-        public DataClasses1DataContext db =MvcApplication.db;
-        
         [HttpGet]
         public ViewResult ProjectsList(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-
+            MvcApplication.logger.Info("Enter to project list as {0} by {1}", WebSecurity.UserLogin, DateTime.Now);
             if (searchString != null)
             {
                 page = 1;
@@ -34,7 +36,7 @@ namespace MvcApplication1.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var projects = from s in db.Projects
+            var projects = from s in MvcApplication.RepoContext.Projects
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -56,29 +58,29 @@ namespace MvcApplication1.Controllers
                     projects = projects.OrderBy(s => s.Title);
                     break;
             }
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
+            var pageSize = 5;
+            var pageNumber = (page ?? 1);
             return View(projects.ToPagedList(pageNumber, pageSize));
-       
         }
 
+        [HttpGet]
         public ActionResult NewProject()
         {
-            ViewBag.Message = "New Project.";
-
+            MvcApplication.logger.Info("Creating new project from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
+            ViewBag.Message = "New Project";
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         //public ActionResult Create([Bind(Include = "LastName, FirstMidName, EnrollmentDate")]Student student)
         //{
         //    try
         //    {
         //        if (ModelState.IsValid)
         //        {
-        //            db.Students.Add(student);
-        //            db.SaveChanges();
+        //            MvcApplication.RepoContext.Students.Add(student);
+        //            MvcApplication.RepoContext.SaveChanges();
         //            return RedirectToAction("Index");
         //        }
         //    }
@@ -90,47 +92,52 @@ namespace MvcApplication1.Controllers
         //    return View(student);
         //}
 
-        public ActionResult DashBoard()
+        [HttpGet]
+        public ActionResult DashBoard(string Title)
         {
-            ViewBag.Message = "DashBoard.";
-
+            ViewBag.Message = "DashBoard";
+            MvcApplication.logger.Info("Open dashboard from {0} at {1} with title = {2}",WebSecurity.UserLogin, DateTime.Now,Title);
+            var directory = new DirectoryInfo(Server.MapPath(@"~\App_Data\" + WebSecurity.UserLogin + @"\" + Title));
+            if (!directory.Exists)
+            {
+                directory.Create();
+            }
+            ViewBag.files = directory.GetFiles().ToList();
+            ViewBag.subDirectoryList = directory.GetDirectories().ToList();
+            ViewBag.path = @"~\App_Data\" + WebSecurity.UserLogin + @"\" +  Title;
             return View();
         }
-     
+
+        [HttpGet]
         public ActionResult Configure()
         {
-            ViewBag.Message = "Configuration Page.";
-
+            ViewBag.Message = "Configuration Page";
+            MvcApplication.logger.Info("Open configuration page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
             return View();
         }
 
+        [HttpGet]
         public ActionResult Builds()
         {
-            ViewBag.Message = "Builds Page.";
-
+            ViewBag.Message = "Builds Page";
+            MvcApplication.logger.Info("Open builds page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
             return View();
         }
 
+        [HttpGet]
         public ActionResult Review()
         {
-            ViewBag.Message = "Builds Page.";
-
+            ViewBag.Message = "Builds Page";
+            MvcApplication.logger.Info("Open review page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
             return View();
         }
 
+        [HttpGet]
         public ActionResult Setting()
         {
-            ViewBag.Message = "Builds Page.";
-
+            ViewBag.Message = "Builds Page";
+            MvcApplication.logger.Info("Open settings project page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
             return View();
         }
-
-        public ActionResult Editor()
-        {
-            ViewBag.Message = "Builds Page.";
-
-            return View();
-        }
-
     }
 }

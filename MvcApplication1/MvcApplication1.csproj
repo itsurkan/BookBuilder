@@ -54,6 +54,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -191,7 +192,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Classes\DictionaryTranslit.cs" />
+    <Compile Include="Controllers\EditorController.cs" />
+    <Compile Include="Filters\DictionaryTranslit.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -208,7 +210,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\LocalPasswordModel.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -304,10 +306,8 @@
       <LastGenOutput>DbClasses.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Logs\Log2Console_1.5.1110.1_Setup.msi" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Images\twitter.png" />
-    <Content Include="Logs\NetFx20SP2_ia64.exe" />
     <Content Include="Requests\SetDb.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -374,11 +374,10 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Settings\UserSettings.cshtml" />
-    <Content Include="Views\Home\AccountSettings.cshtml" />
     <Content Include="Views\Project\Builds.cshtml" />
     <Content Include="Views\Project\Configure.cshtml" />
     <Content Include="Views\Project\DashBoard.cshtml" />
-    <Content Include="Views\Project\Editor.cshtml" />
+    <Content Include="Views\Editor\Index.cshtml" />
     <Content Include="Views\Project\NewProject.cshtml" />
     <Content Include="Views\Project\ProjectsList.cshtml" />
     <Content Include="Views\Project\Review.cshtml" />
@@ -389,10 +388,11 @@
     <Content Include="Views\Shared\_MainTabMenu.cshtml" />
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
     <Content Include="Views\Shared\_PartialBars.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Settings\_ChangePassword.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Editor\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

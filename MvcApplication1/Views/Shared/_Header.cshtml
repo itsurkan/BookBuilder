@@ -7,7 +7,6 @@
     <ul class="nav navbar-nav navbar-right">
         @if (WebSecurity.UserLogin != null)
         {
-            @*//todo зробити переадресування на настройки акаунта*@
             <li>@Html.ActionLink(WebSecurity.UserLogin, "UserSettings", "Settings")</li>
             <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
         }

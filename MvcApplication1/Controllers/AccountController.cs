@@ -4,6 +4,7 @@ using System.Linq;
 using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Ajax.Utilities;
@@ -36,8 +37,10 @@ namespace MvcApplication1.Controllers
             if (ModelState.IsValid && WebSecurity.Login(model.UserMail, model.Password, model.RememberMe))
             {
                 FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin,WebSecurity.Remeber);
+                MvcApplication.logger.Info("Login succesfull at {0} like {1}", DateTime.Now, WebSecurity.UserLogin);
                 return RedirectToLocal(returnUrl);
             }
+            MvcApplication.logger.Warn("Login failed with user mail {0} at {1}", model.UserMail, DateTime.Now);
             ModelState.AddModelError("", Messages.Account_Login_InCorrectModel);
             return View(model);
         }
@@ -83,7 +86,7 @@ namespace MvcApplication1.Controllers
             MvcApplication.logger.Info("Try registration at {0}",DateTime.Now);
             if (ModelState.IsValid)
             {
-                MvcApplication.db.UserProfiles.InsertAllOnSubmit(new UserProfile[]
+                MvcApplication.RepoContext.UserProfiles.InsertAllOnSubmit(new UserProfile[]
                 {
                     new UserProfile
                     {
@@ -93,7 +96,7 @@ namespace MvcApplication1.Controllers
                         Role = 5
                     }
                 });
-                MvcApplication.db.SubmitChanges();
+                MvcApplication.RepoContext.SubmitChanges();
                 MvcApplication.logger.Info("Set into DB new user - login => {0}, mail => {1}, password => {2}",
                     model.UserLogin,model.UserMail, model.Password);
                 WebSecurity.UserLogin = model.UserLogin;
@@ -102,9 +105,40 @@ namespace MvcApplication1.Controllers
                 MvcApplication.logger.Info("Set next user as already login {0}", WebSecurity.UserLogin);
                 return RedirectToAction("Index", "Home");
             }
-
-            // If we got this far, something failed, redisplay form
+            MvcApplication.logger.Warn("Have some errors when register new user at {0}", DateTime.Now);
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            MvcApplication.logger.Info("User {0} wan't to change his password at {1}",WebSecurity.UserLogin,DateTime.Now);
+            //todo якщо 3 раз ввести неправильно свій поточний пароль - розлогінити!!!!
+            var user = MvcApplication.RepoContext.UserProfiles.FirstOrDefault(x => x.Login == WebSecurity.UserLogin);
+            var errorModel = new ChangePasswordModel();
+            if (user != null)
+            {
+                if (user.Password != model.OldPassword)
+                    errorModel.IsOldPasswordHasError = true;
+                if (model.NewPassword.Length < 6)
+                    errorModel.IsNewPasswordHasError = true;
+                if (model.NewPassword != model.ConfirmPassword)
+                    errorModel.IsConfirmPasswordHasError = true;
+                if (!errorModel.IsConfirmPasswordHasError && !errorModel.IsNewPasswordHasError &&
+                    !errorModel.IsOldPasswordHasError)
+                {
+                    user.Password = model.NewPassword;
+                    MvcApplication.RepoContext.SubmitChanges();
+                }
+            }
+            else
+            {
+                MvcApplication.logger.Error("User is empty redirect to logoff and to login after at {0}", DateTime.Now);
+                return RedirectToAction("LogOff");
+            }
+            return RedirectToAction("UserSettings", "Settings", new RouteValueDictionary( new { model = errorModel }));
+            //return RedirectToAction("UserSettings", "Settings", new { model = errorModel });
         }
     }
 }

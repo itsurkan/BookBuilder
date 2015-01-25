@@ -13,6 +13,7 @@
 .checkbox-inline {
     height: 17px;
     width: 80px;
+    margin-left: 80px;
 }
 
 .btn-sm {

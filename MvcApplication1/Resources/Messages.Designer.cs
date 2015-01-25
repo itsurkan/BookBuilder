@@ -61,11 +61,29 @@ namespace MvcApplication1.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You enter incorect you current password.
+        /// </summary>
+        internal static string Account_ConfirmCurrentPassword_InCorrect {
+            get {
+                return ResourceManager.GetString("Account_ConfirmCurrentPassword_InCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your mail or password is incorrect, please check it again..
         /// </summary>
         internal static string Account_Login_InCorrectModel {
             get {
                 return ResourceManager.GetString("Account_Login_InCorrectModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter at last 6 symbols.
+        /// </summary>
+        internal static string Password_Length {
+            get {
+                return ResourceManager.GetString("Password_Length", resourceCulture);
             }
         }
         
@@ -93,15 +111,6 @@ namespace MvcApplication1.Resources {
         internal static string RegisterModel_UserPass_Compare {
             get {
                 return ResourceManager.GetString("RegisterModel_UserPass_Compare", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please enter at last 6 symbols.
-        /// </summary>
-        internal static string RegisterModel_UserPass_Length {
-            get {
-                return ResourceManager.GetString("RegisterModel_UserPass_Length", resourceCulture);
             }
         }
     }

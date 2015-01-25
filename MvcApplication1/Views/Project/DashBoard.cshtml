@@ -1,13 +1,9 @@
 ﻿
 @{
     ViewBag.Title = "Project";
-    string path = "/App_Data/Book1";
-
-
-    DirectoryInfo directory1 = new DirectoryInfo(Server.MapPath(@"~\App_Data\Book1"));
-    List<FileInfo> files = directory1.GetFiles().ToList();
-    List<DirectoryInfo> directory = directory1.GetDirectories().ToList();
-  
+    var files = ViewBag.files;
+    var subDirectoryList = ViewBag.subDirectoryList;
+    var path = ViewBag.path;
 }
 
 <body>
@@ -90,7 +86,7 @@
                                     </div>
                                 }
                                 
-                                foreach (var dir in directory)
+                                foreach (var dir in subDirectoryList)
                                 {
                                     <div class="list-item file-list-item has-icon-outside-link">
 
