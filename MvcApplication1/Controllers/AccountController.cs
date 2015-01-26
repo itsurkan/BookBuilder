@@ -118,17 +118,24 @@ namespace MvcApplication1.Controllers
             var errorModel = new ChangePasswordModel();
             if (user != null)
             {
-                if (user.Password != model.OldPassword)
-                    errorModel.IsOldPasswordHasError = true;
-                if (model.NewPassword.Length < 6)
-                    errorModel.IsNewPasswordHasError = true;
-                if (model.NewPassword != model.ConfirmPassword)
-                    errorModel.IsConfirmPasswordHasError = true;
-                if (!errorModel.IsConfirmPasswordHasError && !errorModel.IsNewPasswordHasError &&
-                    !errorModel.IsOldPasswordHasError)
+                if (errorModel.OldPassword != null 
+                    && errorModel.NewPassword != null 
+                    && errorModel.ConfirmPassword != null)
                 {
-                    user.Password = model.NewPassword;
-                    MvcApplication.RepoContext.SaveChanges();
+                    if (user.Password != model.OldPassword)
+                        errorModel.IsOldPasswordHasError = true;
+
+                    if (model.NewPassword.Length < 6)
+                        errorModel.IsNewPasswordHasError = true;
+                    if (model.NewPassword != model.ConfirmPassword)
+                        errorModel.IsConfirmPasswordHasError = true;
+                    if (!errorModel.IsConfirmPasswordHasError
+                        && !errorModel.IsNewPasswordHasError 
+                        && !errorModel.IsOldPasswordHasError)
+                    {
+                        user.Password = model.NewPassword;
+                        MvcApplication.RepoContext.SaveChanges();
+                    }
                 }
             }
             else
@@ -136,10 +143,12 @@ namespace MvcApplication1.Controllers
                 MvcApplication.logger.Error("User is empty redirect to logoff and to login after at {0}", DateTime.Now);
                 return RedirectToAction("LogOff");
             }
-            //return RedirectToAction("UserSettings", "Settings", new RouteValueDictionary(new {model = errorModel}));
-            return RedirectToAction("UserSettings", "Settings", new { model = errorModel });
-
+            return RedirectToAction("UserSettings", "Settings", new
+            {
+                isOldPasswordHasError = errorModel.IsOldPasswordHasError,
+                isNewPasswordHasError = errorModel.IsNewPasswordHasError,
+                isConfirmPasswordHasError = errorModel.IsConfirmPasswordHasError
+            });
         }
-
     }
 }

@@ -11,27 +11,16 @@ namespace MvcApplication1.Controllers
     [Authorize]
     public class SettingsController : Controller
     {
-        [HttpPost]
-        public ActionResult UserSettings(ChangePasswordModel model)
+        [HttpGet]
+        public ActionResult UserSettings(bool? isOldPasswordHasError, bool? isNewPasswordHasError, bool? isConfirmPasswordHasError)
         {
             MvcApplication.logger.Info("Open account settings for {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
-            ViewBag.IsOldPasswordHasError = model.IsOldPasswordHasError;
-            ViewBag.IsConfirmPasswordHasError = model.IsConfirmPasswordHasError;
-            ViewBag.IsNewPasswordHasError = model.IsNewPasswordHasError;
+            ViewBag.IsOldPasswordHasError = isOldPasswordHasError;
+            ViewBag.IsNewPasswordHasError = isNewPasswordHasError;
+            ViewBag.IsConfirmPasswordHasError = isConfirmPasswordHasError;
             return View(MvcApplication.RepoContext
                 .UserProfiles.FirstOrDefault(x => x.Login == WebSecurity.UserLogin));
         }
-        [HttpGet]
-        public ActionResult UserSettings()
-        {
-            ViewBag.IsOldPasswordHasError = false;
-            ViewBag.IsConfirmPasswordHasError = false;
-            ViewBag.IsNewPasswordHasError = false;
-           
-            MvcApplication.logger.Info("Open account settings for {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
-            return View(MvcApplication.RepoContext
-                .UserProfiles.FirstOrDefault(x => x.Login == WebSecurity.UserLogin));
-        } 
     }
 }
    //@*<div class="col-md-4">

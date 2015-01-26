@@ -109,9 +109,9 @@
         @{
             Html.RenderPartial("~/Views/Settings/_ChangePassword.cshtml", new ChangePasswordModel
             {
-                IsConfirmPasswordHasError = ViewBag.IsConfirmPasswordHasError,
-                IsNewPasswordHasError = ViewBag.IsNewPasswordHasError,
-                IsOldPasswordHasError = ViewBag.IsOldPasswordHasError
+                IsConfirmPasswordHasError = ViewBag.IsConfirmPasswordHasError ?? false,
+                IsNewPasswordHasError = ViewBag.IsNewPasswordHasError ?? false,
+                IsOldPasswordHasError = ViewBag.IsOldPasswordHasError ?? false
             });
         }
     </div>
