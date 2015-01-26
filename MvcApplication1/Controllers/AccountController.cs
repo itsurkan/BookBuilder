@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using System.Web.UI.WebControls;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Web.WebPages.OAuth;
@@ -24,7 +25,7 @@ namespace MvcApplication1.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            MvcApplication.logger.Info("Open log page at {0}",DateTime.Now);
+            MvcApplication.logger.Info("Open log page at {0}", DateTime.Now);
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -36,7 +37,7 @@ namespace MvcApplication1.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserMail, model.Password, model.RememberMe))
             {
-                FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin,WebSecurity.Remeber);
+                FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin, WebSecurity.Remeber);
                 MvcApplication.logger.Info("Login succesfull at {0} like {1}", DateTime.Now, WebSecurity.UserLogin);
                 return RedirectToLocal(returnUrl);
             }
@@ -64,7 +65,7 @@ namespace MvcApplication1.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            MvcApplication.logger.Info("User {0} logoff at {1}",WebSecurity.UserLogin,DateTime.Now);
+            MvcApplication.logger.Info("User {0} logoff at {1}", WebSecurity.UserLogin, DateTime.Now);
             WebSecurity.UserLogin = null;
             WebSecurity.Remeber = false;
             return RedirectToAction("Login");
@@ -83,25 +84,22 @@ namespace MvcApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
-            MvcApplication.logger.Info("Try registration at {0}",DateTime.Now);
+            MvcApplication.logger.Info("Try registration at {0}", DateTime.Now);
             if (ModelState.IsValid)
             {
-                MvcApplication.RepoContext.UserProfiles.InsertAllOnSubmit(new UserProfile[]
+                MvcApplication.RepoContext.UserProfiles.Add(new UserProfile
                 {
-                    new UserProfile
-                    {
-                        Login = model.UserLogin,
-                        Mail = model.UserMail,
-                        Password = model.Password,
-                        Role = 5
-                    }
+                    Login = model.UserLogin,
+                    Mail = model.UserMail,
+                    Password = model.Password,
+                    Role = 5
                 });
-                MvcApplication.RepoContext.SubmitChanges();
+                MvcApplication.RepoContext.SaveChanges();
                 MvcApplication.logger.Info("Set into DB new user - login => {0}, mail => {1}, password => {2}",
-                    model.UserLogin,model.UserMail, model.Password);
+                    model.UserLogin, model.UserMail, model.Password);
                 WebSecurity.UserLogin = model.UserLogin;
                 WebSecurity.Remeber = false;
-                FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin,WebSecurity.Remeber);
+                FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin, WebSecurity.Remeber);
                 MvcApplication.logger.Info("Set next user as already login {0}", WebSecurity.UserLogin);
                 return RedirectToAction("Index", "Home");
             }
@@ -113,7 +111,8 @@ namespace MvcApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
-            MvcApplication.logger.Info("User {0} wan't to change his password at {1}",WebSecurity.UserLogin,DateTime.Now);
+            MvcApplication.logger.Info("User {0} wan't to change his password at {1}", WebSecurity.UserLogin,
+                DateTime.Now);
             //todo якщо 3 раз ввести неправильно свій поточний пароль - розлогінити!!!!
             var user = MvcApplication.RepoContext.UserProfiles.FirstOrDefault(x => x.Login == WebSecurity.UserLogin);
             var errorModel = new ChangePasswordModel();
@@ -129,7 +128,7 @@ namespace MvcApplication1.Controllers
                     !errorModel.IsOldPasswordHasError)
                 {
                     user.Password = model.NewPassword;
-                    MvcApplication.RepoContext.SubmitChanges();
+                    MvcApplication.RepoContext.SaveChanges();
                 }
             }
             else
@@ -137,8 +136,10 @@ namespace MvcApplication1.Controllers
                 MvcApplication.logger.Error("User is empty redirect to logoff and to login after at {0}", DateTime.Now);
                 return RedirectToAction("LogOff");
             }
-            return RedirectToAction("UserSettings", "Settings", new RouteValueDictionary( new { model = errorModel }));
-            //return RedirectToAction("UserSettings", "Settings", new { model = errorModel });
+            //return RedirectToAction("UserSettings", "Settings", new RouteValueDictionary(new {model = errorModel}));
+            return RedirectToAction("UserSettings", "Settings", new { model = errorModel });
+
         }
+
     }
 }

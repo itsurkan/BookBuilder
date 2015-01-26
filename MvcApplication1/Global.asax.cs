@@ -19,7 +19,7 @@ namespace MvcApplication1
     public class MvcApplication : System.Web.HttpApplication
     {
         public static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        public static DataClasses1DataContext RepoContext = new DataClasses1DataContext();
+        public static Entities RepoContext = new Entities();
 
         protected void Application_Start()
         {
@@ -36,8 +36,7 @@ namespace MvcApplication1
 
         public void test()
         {
-            var db = new DataClasses1DataContext();
-            var docs = db.Documents.AsEnumerable();
+            var docs = RepoContext.Projects.AsEnumerable();
             var doc = docs.First();
             var tmp = doc.Path.Split('/');
             var project = tmp[0];

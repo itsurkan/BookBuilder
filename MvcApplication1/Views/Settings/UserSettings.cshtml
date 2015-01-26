@@ -27,80 +27,85 @@
         </div>
     </div>
     <div class="row">
+        @using (Html.BeginForm())
+        {
 
-        <div class="col-md-4 hidden" id="left">
-            <div class="box right10 down20 " id="token-box">
-                <div class="box-top">
-                    <h3><i class="glyphicons lock"></i> API Token</h3>
-                </div>
-                <div class="box-inner">
+            <div class="col-md-4 hidden" id="left">
+                <div class="box right10 down20 " id="token-box">
+                    <div class="box-top">
+                        <h3><i class="glyphicons lock"></i> API Token</h3>
+                    </div>
+                    <div class="box-inner">
 
-                    <p>Use this API Token to access the Atlas API programmatically:</p>
-                    <pre id="authentication-token">Q7qoy7e3ajd6aJBM6153</pre>
-                    <p>Please keep this token secret, and reset the token if compromised.</p>
-                    <a href="https://atlas.oreilly.com/settings#" id="reset-token-link" class="btn btn-error">Reset Token</a>
+                        <p>Use this API Token to access the Atlas API programmatically:</p>
+                        <pre id="authentication-token">Q7qoy7e3ajd6aJBM6153</pre>
+                        <p>Please keep this token secret, and reset the token if compromised.</p>
+                        <a href="https://atlas.oreilly.com/settings#" id="reset-token-link" class="btn btn-error">Reset Token</a>
 
+                    </div>
                 </div>
-            </div>
 
-            <div class="box right10 down20 hidden" id="notifications-box">
-                <div class="box-top">
-                    <h3><i class="glyphicons envelope"></i> Notifications</h3>
-                </div>
-                <div class="box-inner">
-                    <p>
-                        <label for="notifications-checkbox">
-                            <input type="checkbox" checked="" id="notifications-checkbox"> Receive email notifications.
-                        </label>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-8" id="right">
-            <div class="box down20" id="personal-information">
-                <div class="box-top">
-                    <h3>Personal Information</h3>
-                </div>
-                <div class="box-inner">
-                    <div class="row-fluid">
-                        <div class="span2" id="gravatar-box">
-                            <p id="missing-gravatar">
-                                Add  <a href="https://gravatar.com/">Gravatar</a>
-                            </p>
-                        </div>
-                        <div class="span6">
-                            <h3>
-                                @Model.FullName
-                                <span id="email-address">@Model.Mail</span>
-                            </h3>
-                            <ul class="user-info">
-                                <li><span class="light">Username: </span>@Model.Login</li>
-                            </ul>
-                        </div>
+                <div class="box right10 down20 hidden" id="notifications-box">
+                    <div class="box-top">
+                        <h3><i class="glyphicons envelope"></i> Notifications</h3>
+                    </div>
+                    <div class="box-inner">
+                        <p>
+                            <label for="notifications-checkbox">
+                                <input type="checkbox" checked="" id="notifications-checkbox"> Receive email notifications.
+                            </label>
+                        </p>
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-8" id="right">
+                <div class="box down20" id="personal-information">
+                    <div class="box-top">
+                        <h3>Personal Information</h3>
+                    </div>
+                    <div class="box-inner">
+                        <div class="row-fluid">
+                            <div class="span2" id="gravatar-box">
+                                <p id="missing-gravatar">
+                                    Add  <a href="https://gravatar.com/">Gravatar</a>
+                                </p>
+                            </div>
+                            <div class="span6">
+                                <h3>
+                                    @Model.FullName
+                                    <span id="email-address">@Model.Mail</span>
+                                </h3>
+                                <ul class="user-info">
+                                    <li><span class="light">Username: </span>@Model.Login</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
           
-            <div class="box down20 hidden" id="registration-codes">
-                <div class="box-top">
-                    <h3>Registration Code</h3>
-                </div>
-                <div class="box-inner">
-                    <div class="code-list list">
-                        <div class="list-item list-padding">
-                            ATLASTRIAL <span class="days">3 days left</span>
-
-                            <a href="https://atlas.oreilly.com/settings#"><i class="glyphicons circle_remove list-icon"></i></a>
-                        </div>
+                <div class="box down20 hidden" id="registration-codes">
+                    <div class="box-top">
+                        <h3>Registration Code</h3>
                     </div>
-                    <form id="code-form" class="form-inline down20">
+                    <div class="box-inner">
+                        <div class="code-list list">
+                            <div class="list-item list-padding">
+                                ATLASTRIAL <span class="days">3 days left</span>
+
+                                <a href="https://atlas.oreilly.com/settings#"><i class="glyphicons circle_remove list-icon"></i></a>
+                            </div>
+                        </div>
+                        @*<form id="code-form" class="form-inline down20">*@
                         <input type="text" id="registration_code" name="registration_code" placeholder="Enter new registration code" style="height:100%;">
                         <input type="submit" class="btn btn-success">
-                    </form>
+                        @*</form>*@
+                    </div>
                 </div>
             </div>
-        </div>
+
+        }
+ 
         @{
             Html.RenderPartial("~/Views/Settings/_ChangePassword.cshtml", new ChangePasswordModel
             {
@@ -111,5 +116,4 @@
         }
     </div>
 </div>
-
 

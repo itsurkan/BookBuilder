@@ -11,7 +11,7 @@ namespace MvcApplication1.Controllers
     [Authorize]
     public class SettingsController : Controller
     {
-       [HttpGet]
+        [HttpPost]
         public ActionResult UserSettings(ChangePasswordModel model)
         {
             MvcApplication.logger.Info("Open account settings for {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
@@ -21,6 +21,17 @@ namespace MvcApplication1.Controllers
             return View(MvcApplication.RepoContext
                 .UserProfiles.FirstOrDefault(x => x.Login == WebSecurity.UserLogin));
         }
+        [HttpGet]
+        public ActionResult UserSettings()
+        {
+            ViewBag.IsOldPasswordHasError = false;
+            ViewBag.IsConfirmPasswordHasError = false;
+            ViewBag.IsNewPasswordHasError = false;
+           
+            MvcApplication.logger.Info("Open account settings for {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
+            return View(MvcApplication.RepoContext
+                .UserProfiles.FirstOrDefault(x => x.Login == WebSecurity.UserLogin));
+        } 
     }
 }
    //@*<div class="col-md-4">
