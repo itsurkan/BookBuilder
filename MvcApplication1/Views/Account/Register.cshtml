@@ -16,23 +16,31 @@
                     @Html.ValidationSummary(true)
                     <div class="form-group">
                         <p>@Html.ValidationMessageFor(m => m.UserMail)</p>
+                        @if (!@Model.IsUserMailAvilable)
+                        {
+                            <p class="field-validation-error">@Model.UserMailNotAvilabe</p>
+                        }
                         @Html.LabelFor(m => m.UserMail, new {@class = " control-label"})
-                        @Html.TextBoxFor(m => m.UserMail, new {@class="form-control right-side", type = "email", required = "required ", @style="display: inline"})
+                        @Html.TextBoxFor(m => m.UserMail, new {@class="right-side form-control fields-in-register", type = "email", required = "required "})
                     </div>
                     <div class="form-group">
                         <p>@Html.ValidationMessageFor(m => m.UserLogin)</p>
+                        @if (!@Model.IsUserLoginAvilable)
+                        {
+                               <p class="field-validation-error">@Model.UserLoginNotAvilabe</p>
+                        }
                         @Html.LabelFor(m => m.UserLogin, new {@class = " control-label"})
-                        @Html.TextBoxFor(m => m.UserLogin, new { @class = "form-control right-side", required = "required" })
+                        @Html.TextBoxFor(m => m.UserLogin, new { @class = "right-side form-control fields-in-register", required = "required" })
                     </div>
                     <div class="form-group">
                        <p>@Html.ValidationMessageFor(m => m.Password)</p>
                         @Html.LabelFor(m => m.Password, new {@class = " control-label"})
-                        @Html.PasswordFor(m => m.Password, new {@class="form-control right-side", required = "required"})
+                        @Html.PasswordFor(m => m.Password, new {@class="right-side form-control fields-in-register", required = "required"})
                     </div>
                     <div class="form-group">
                         <p>@Html.ValidationMessageFor(m => m.ConfirmPassword)</p>
                         @Html.LabelFor(m => m.ConfirmPassword, new {@class = "control-label"})
-                        @Html.PasswordFor(m => m.ConfirmPassword, new {@class="right-side form-control", required = "required"})
+                        @Html.PasswordFor(m => m.ConfirmPassword, new {@class="right-side form-control fields-in-register", required = "required"})
                     </div>
                     <div class="form-group last">
                         <div class="col-sm-offset-3 col-sm-9 ">

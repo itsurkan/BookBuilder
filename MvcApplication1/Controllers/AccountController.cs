@@ -76,7 +76,7 @@ namespace MvcApplication1.Controllers
         public ActionResult Register()
         {
             MvcApplication.logger.Info("Open Registration page at {0}", DateTime.Now);
-            return View();
+            return View(new RegisterModel());
         }
 
         [HttpPost]
@@ -87,21 +87,29 @@ namespace MvcApplication1.Controllers
             MvcApplication.logger.Info("Try registration at {0}", DateTime.Now);
             if (ModelState.IsValid)
             {
-                MvcApplication.RepoContext.UserProfiles.Add(new UserProfile
+                if (!MvcApplication.RepoContext.UserProfiles.Any(x=>x.Mail == model.UserMail || x.Login == model.UserLogin))
                 {
-                    Login = model.UserLogin,
-                    Mail = model.UserMail,
-                    Password = model.Password,
-                    Role = 5
-                });
-                MvcApplication.RepoContext.SaveChanges();
-                MvcApplication.logger.Info("Set into DB new user - login => {0}, mail => {1}, password => {2}",
-                    model.UserLogin, model.UserMail, model.Password);
-                WebSecurity.UserLogin = model.UserLogin;
-                WebSecurity.Remeber = false;
-                FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin, WebSecurity.Remeber);
-                MvcApplication.logger.Info("Set next user as already login {0}", WebSecurity.UserLogin);
-                return RedirectToAction("Index", "Home");
+                    MvcApplication.RepoContext.UserProfiles.Add(new UserProfile
+                    {
+                        Login = model.UserLogin,
+                        Mail = model.UserMail,
+                        Password = model.Password,
+                        Role = 5
+                    });
+                    MvcApplication.RepoContext.SaveChanges();
+                    MvcApplication.logger.Info("Set into DB new user - login => {0}, mail => {1}, password => {2}",
+                        model.UserLogin, model.UserMail, model.Password);
+                    WebSecurity.UserLogin = model.UserLogin;
+                    WebSecurity.Remeber = false;
+                    FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin, WebSecurity.Remeber);
+                    MvcApplication.logger.Info("Set next user as already login {0}", WebSecurity.UserLogin);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    model.IsUserLoginAvilable = !MvcApplication.RepoContext.UserProfiles.Any(x => x.Login == model.UserLogin);
+                    model.IsUserMailAvilable =  !MvcApplication.RepoContext.UserProfiles.Any(x => x.Mail == model.UserMail);
+                }
             }
             MvcApplication.logger.Warn("Have some errors when register new user at {0}", DateTime.Now);
             return View(model);
@@ -118,25 +126,26 @@ namespace MvcApplication1.Controllers
             var errorModel = new ChangePasswordModel();
             if (user != null)
             {
-                if (errorModel.OldPassword != null 
-                    && errorModel.NewPassword != null 
-                    && errorModel.ConfirmPassword != null)
-                {
+                if (model.OldPassword != null)
                     if (user.Password != model.OldPassword)
                         errorModel.IsOldPasswordHasError = true;
-
+                if (model.NewPassword != null)
                     if (model.NewPassword.Length < 6)
                         errorModel.IsNewPasswordHasError = true;
+                if (model.ConfirmPassword != null)
                     if (model.NewPassword != model.ConfirmPassword)
                         errorModel.IsConfirmPasswordHasError = true;
-                    if (!errorModel.IsConfirmPasswordHasError
-                        && !errorModel.IsNewPasswordHasError 
-                        && !errorModel.IsOldPasswordHasError)
-                    {
-                        user.Password = model.NewPassword;
-                        MvcApplication.RepoContext.SaveChanges();
-                    }
+                if (!errorModel.IsConfirmPasswordHasError
+                    && !errorModel.IsNewPasswordHasError
+                    && !errorModel.IsOldPasswordHasError
+                    && model.OldPassword != null
+                    && model.NewPassword != null
+                    && model.ConfirmPassword != null)
+                {
+                    user.Password = model.NewPassword;
+                    MvcApplication.RepoContext.SaveChanges();
                 }
+
             }
             else
             {

@@ -129,8 +129,14 @@
   <data name="RegisterModel_UserLogin_Length" xml:space="preserve">
     <value>Sorry, you must enter login between 6 and 30 symbols</value>
   </data>
+  <data name="RegisterModel_UserLogin_NotAvilable" xml:space="preserve">
+    <value>Sory, but another user use this login in the system.</value>
+  </data>
   <data name="RegisterModel_UserMail_Length" xml:space="preserve">
     <value>Please enter enother, more shortly e-mail.</value>
+  </data>
+  <data name="RegisterModel_UserMail_NotAvilable" xml:space="preserve">
+    <value>Sorry, but this e-mail already using in the system.</value>
   </data>
   <data name="RegisterModel_UserPass_Compare" xml:space="preserve">
     <value>Your passwords don't compareble</value>

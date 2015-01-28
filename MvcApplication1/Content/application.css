@@ -2675,7 +2675,7 @@ footer {
     *margin-right: .3em;
 }
 
-    .glyphicons-icon _:-o-prefocus, .glyphicons-icon {
+    .glyphicons-icon:-o-prefocus, .glyphicons-icon {
         background-image: url(../images/glyphicons.png);
     }
 
@@ -2687,7 +2687,7 @@ footer {
     background-image: url(../images/glyphicons-white.svg);
 }
 
-    .glyphicons-icon.white _:-o-prefocus, .glyphicons-icon.white {
+    .glyphicons-icon.white:-o-prefocus, .glyphicons-icon.white {
         background-image: url(../images/glyphicons-white.png);
     }
 

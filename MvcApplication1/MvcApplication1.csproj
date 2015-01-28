@@ -417,7 +417,7 @@
     <Content Include="Views\Settings\UserSettings.cshtml" />
     <Content Include="Views\Build\Builds.cshtml" />
     <Content Include="Views\Configure\Configure.cshtml" />
-    <Content Include="Views\Dashboard\DashBoard.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Editor\Editor.cshtml" />
     <Content Include="Views\Project\NewProject.cshtml" />
     <Content Include="Views\Project\ProjectsList.cshtml" />

@@ -32,7 +32,13 @@ namespace MvcApplication1.Models
         [StringLength(30, ErrorMessageResourceType = typeof(Messages),ErrorMessageResourceName = "RegisterModel_UserLogin_Length", MinimumLength = 6)]
         public string UserLogin { get; set; }
 
-        
+
+        public bool IsUserMailAvilable = true;
+        public bool IsUserLoginAvilable = true;
+
+        public readonly string UserMailNotAvilabe = Messages.RegisterModel_UserMail_NotAvilable;
+        public readonly string UserLoginNotAvilabe = Messages.RegisterModel_UserLogin_NotAvilable;
+
 
     }
 }

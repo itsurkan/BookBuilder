@@ -20,13 +20,13 @@ namespace MvcApplication1
     {
         public static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         public static Entities RepoContext = new Entities();
-
+        //todo додати ролі, які будуть постійно провірятись у лайауті!!!!
         protected void Application_Start()
         {
             logger.Info("Application Start at {0}", DateTime.Now);
             //test();
             AreaRegistration.RegisterAllAreas();
-            
+            var test = MvcApplication.RepoContext.UserProfiles.FirstOrDefault();
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

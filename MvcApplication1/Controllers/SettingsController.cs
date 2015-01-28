@@ -15,9 +15,9 @@ namespace MvcApplication1.Controllers
         public ActionResult UserSettings(bool? isOldPasswordHasError, bool? isNewPasswordHasError, bool? isConfirmPasswordHasError)
         {
             MvcApplication.logger.Info("Open account settings for {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
-            ViewBag.IsOldPasswordHasError = isOldPasswordHasError;
-            ViewBag.IsNewPasswordHasError = isNewPasswordHasError;
-            ViewBag.IsConfirmPasswordHasError = isConfirmPasswordHasError;
+            ViewBag.IsOldPasswordHasError = isOldPasswordHasError ?? false;
+            ViewBag.IsNewPasswordHasError = isNewPasswordHasError ?? false;
+            ViewBag.IsConfirmPasswordHasError = isConfirmPasswordHasError ?? false;
             return View(MvcApplication.RepoContext
                 .UserProfiles.FirstOrDefault(x => x.Login == WebSecurity.UserLogin));
         }

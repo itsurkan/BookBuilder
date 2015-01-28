@@ -10,10 +10,14 @@
     color: crimson;
 }    
 
-.checkbox-inline {
-    height: 17px;
-    width: 80px;
-    margin-left: 80px;
+.checkbox-inline1 {
+    height: 17px !important;
+    width: 80px !important;
+    
+}
+.right-side.form-control.fields-in-register{
+    margin-top: -42px !important;
+    margin-bottom: 10px !important;
 }
 
 .btn-sm {
@@ -21,6 +25,8 @@
 }
 .control-label {
     width: 90px;
+    height: 34px;
+    font-weight: bold !important;
 }
 .checkbox {
     width: 65%;
