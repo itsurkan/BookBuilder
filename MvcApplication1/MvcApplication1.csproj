@@ -241,6 +241,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\DictionaryTranslit.cs" />
     <Compile Include="Resources\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -328,7 +329,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Logs\Log2Console_1.5.1110.1_Setup.msi" />
     <EntityDeploy Include="DbModels\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -348,7 +348,6 @@
     </Content>
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Images\twitter.png" />
-    <Content Include="Logs\NetFx20SP2_ia64.exe" />
     <Content Include="Requests\SetDb.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -415,13 +414,13 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Settings\UserSettings.cshtml" />
-    <Content Include="Views\Build\Builds.cshtml" />
-    <Content Include="Views\Configure\Configure.cshtml" />
+    <Content Include="Views\Build\Index.cshtml" />
+    <Content Include="Views\Configure\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Editor\Editor.cshtml" />
     <Content Include="Views\Project\NewProject.cshtml" />
     <Content Include="Views\Project\ProjectsList.cshtml" />
-    <Content Include="Views\Review\Review.cshtml" />
+    <Content Include="Views\Review\Index.cshtml" />
     <Content Include="Views\Project\Setting.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_ListPartial.cshtml" />

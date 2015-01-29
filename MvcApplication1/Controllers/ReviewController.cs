@@ -3,21 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcApplication1.DbModels;
+using MvcApplication1.Filters;
 
 namespace MvcApplication1.Controllers
 {
     public class ReviewController : Controller
     {
-        //
-        // GET: /Review/
+        private Entities db = MvcApplication.RepoContext;
+        public NLog.Logger Log = MvcApplication.logger;
 
-
-        public ActionResult Review()
+        public ActionResult Index(int id)
         {
-            ViewBag.Message = "Builds Page.";
+            ViewBag.Message = "Builds Page";
+            MvcApplication.logger.Info("Open review page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
 
-            return View();
+            Projects project = db.Projects.Find(id);
+
+            if (project != null)
+            {
+                return View(project);
+            }
+            return RedirectToAction("ProjectsList", "Project");
+
         }
-
     }
 }

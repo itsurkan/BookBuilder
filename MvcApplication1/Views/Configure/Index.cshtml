@@ -1,11 +1,6 @@
-﻿@{
+﻿@model MvcApplication1.DbModels.Projects
+@{
     ViewBag.Title = "Configure";
-    string path = "/App_Data/Book1/BookFiles";
-
-
-    DirectoryInfo directory1 = new DirectoryInfo(Server.MapPath(@"~\App_Data\Book1"));
-    List<FileInfo> files = directory1.GetFiles().ToList();
-    List<DirectoryInfo> directory = directory1.GetDirectories().ToList();
 }
 
     <div class="container" id="main">
@@ -49,7 +44,7 @@
                             <div class="tree-list list" style="max-height: 400px;">
                                
                                 @{
-                                    foreach (var file in files)
+                                    foreach (var file in ViewBag.files)
                                     {
                                         <div class="list-item file-list-item ">
 
@@ -60,7 +55,7 @@
                                         </div>
                                     }
 
-                                    foreach (var dir in directory)
+                                    foreach (var dir in ViewBag.subDirectoryList)
                                     {
                                         <div class="list-item folder-list-item">
 
@@ -89,7 +84,7 @@
                         <ul class="tree-list list" style="max-height: 400px;">
                           
                             @{
-                                foreach (var file in files)
+                                foreach (var file in ViewBag.files)
                                 {
                                     <li class="list-item file-list-item has-icon-outside-link" draggable="true">
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model MvcApplication1.DbModels.Projects
 @{
     ViewBag.Title = "Project";
     var files = ViewBag.files;
@@ -10,40 +10,8 @@
     <div class="container" id="main">
         <div class="flash affix-top"></div>
 
-
-        <!--Select box and search-->
-        <div id="projects-bar" class="down30 clearfix">
-            <!--User-->
-            <div class="pull-left select-dropdown hidden">
-                <select class="media-list" style="width: 75%;">
-
-                    <option>
-                        all
-                    </option>
-
-                    <option>
-                        demo_book
-                    </option>
-
-                </select>
-
-            </div>
-          
-              <div id="projects-sort" class="pull-left select-dropdown">
-                  <select class="media-list" onchange='submit();'>
-
-                      <option value="created">Sort by Created </option>
-                      <option value="name"> Sort by Name </option>
-                      <option value="updated">Sort by Updated  </option>
-
-                  </select>
-
-            </div>
-            <div class="pull-right">
-                <input type="text" name="search" placeholder="Search..." style="height: 100%;">
-            </div>
-        </div>
-
+       @Html.Partial("_MainTabMenu",  this.Model)
+   
         <!--Main files bar-->
         <div class="row down20" id="project-show">
             <div class="span7">

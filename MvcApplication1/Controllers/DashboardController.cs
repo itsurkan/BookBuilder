@@ -11,22 +11,36 @@ namespace MvcApplication1.Controllers
 {
     public class DashboardController : Controller
     {
+        private Entities db = MvcApplication.RepoContext;
+        public NLog.Logger Log = MvcApplication.logger;
         //
         // GET: /Dashboard/
-        public ActionResult Index(string Title)
+        public ActionResult Index(int id)
         {
-            ViewBag.Message = "DashBoard";
-            MvcApplication.logger.Info("Open dashboard from {0} at {1} with title = {2}", WebSecurity.UserLogin, DateTime.Now, Title);
-            var directory = new DirectoryInfo(Server.MapPath(@"~\App_Data\" + WebSecurity.UserLogin + @"\" + Title));
-            if (!directory.Exists)
+            Projects project = db.Projects.Find(id);
+            Log.Info("Dashboard fid project by id:{0}", id);
+
+            if (project!=null)
             {
-                directory.Create();
+                ViewBag.Message = "DashBoard";
+                MvcApplication.logger.Info("Open dashboard from {0} at {1} with title = {2}", WebSecurity.UserLogin, DateTime.Now, project.Title);
+
+                ViewBag.path = @"~\App_Data\" + project.UserLogin + @"\" + project.Path;
+                var directory = new DirectoryInfo(Server.MapPath(ViewBag.path));
+                
+                if (!directory.Exists)
+                {
+                    directory.Create();
+                }
+
+                ViewBag.files = directory.GetFiles().ToList();
+                ViewBag.subDirectoryList = directory.GetDirectories().ToList();
+               
+                return View(project);
+               
             }
-            ViewBag.files = directory.GetFiles().ToList();
-            ViewBag.subDirectoryList = directory.GetDirectories().ToList();
-            ViewBag.path = @"~\App_Data\" + WebSecurity.UserLogin + @"\" + Title;
-          
-            return View();
+            return RedirectToAction("ProjectsList", "Project");
+
         }
      
 

@@ -25,10 +25,9 @@ namespace MvcApplication1.Controllers
         public NLog.Logger Log = MvcApplication.logger;
         public static string PathToFiles = "App_Data/";
 
-        //
+   
         // GET: /Projects/
         [HttpGet]
-       
         public ViewResult ProjectsList(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -46,7 +45,7 @@ namespace MvcApplication1.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var projects = from s in MvcApplication.RepoContext.Projects
+            var projects = from s in MvcApplication.RepoContext.Projects where s.UserLogin ==WebSecurity.UserLogin
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -88,7 +87,7 @@ namespace MvcApplication1.Controllers
             Log.Info("new project {0}", DateTime.Now);
             project.Date = DateTime.Now;
             project.UserLogin = WebSecurity.UserLogin;
-            //todo project.Path = project.Title.Translit();
+            project.Path = project.Title.Translit();
             try
             {
                 if (ModelState.IsValid)
@@ -108,14 +107,6 @@ namespace MvcApplication1.Controllers
                 Log.Info("new project error {0}", DateTime.Now);
         }
             return View(project);
-        }
-
-        [HttpGet]
-        public ActionResult Configure()
-        {
-            ViewBag.Message = "Configuration Page";
-            MvcApplication.logger.Info("Open configuration page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
-            return View();
         }
 
         [HttpGet]
@@ -139,21 +130,6 @@ namespace MvcApplication1.Controllers
 
             return View(project);
 
-        }
-        [HttpGet]
-        public ActionResult Builds()
-        {
-            ViewBag.Message = "Builds Page";
-            MvcApplication.logger.Info("Open builds page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Review()
-        {
-            ViewBag.Message = "Builds Page";
-            MvcApplication.logger.Info("Open review page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
-            return View();
         }
 
         [HttpPost, ActionName("Edit")]
@@ -209,7 +185,6 @@ namespace MvcApplication1.Controllers
             return View(project);
         }
 
-        // POST: Student/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
@@ -231,26 +206,36 @@ namespace MvcApplication1.Controllers
             }
             return RedirectToAction("ProjectsList");
         }
-        protected override void Dispose(bool disposing)
-        {
-            //if (disposing)
-            //{
-            //    RepoContext.Dispose();
-            //}
-            //base.Dispose(disposing);
-        }
+
         [HttpGet]
-        public ActionResult Setting()
+        public ActionResult Setting(int id)
         {
             ViewBag.Message = "Builds Page";
             MvcApplication.logger.Info("Open settings project page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
-            return View();
+            Projects project = MvcApplication.RepoContext.Projects.Find(id);
+            Log.Info("Dashboard fid project by id:{0}", id);
+
+            if (project != null)
+            {
+                return View(project);
+            }
+            return RedirectToAction("ProjectsList", "Project");
+
         }
 
         [HttpPost]
         public ActionResult ArchiveProject(object value)
         {
             return RedirectToAction("ProjectsList");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+        //    if (disposing)
+        //    {
+        //        RepoContext.Dispose();
+        //    }
+        //    base.Dispose(disposing);
         }
     }
 }
