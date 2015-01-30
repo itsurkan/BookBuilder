@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
 using System.Xml.Linq;
+using BookBuilder.Resources;
 using MvcApplication1.DbModels;
 using MvcApplication1.Filters;
 using MvcApplication1.Resources;

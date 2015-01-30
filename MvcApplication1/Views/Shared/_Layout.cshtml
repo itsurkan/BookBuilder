@@ -2,28 +2,27 @@
 @using MvcApplication1.Models
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>@ViewBag.Title - Book Builder</title>
-    @Scripts.Render("~/bundles/modernizr")
-    @*@Styles.Render("~/Content/css")*@
+
+        <title>@ViewBag.Title - Book Builder</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <script src="/Scripts/jquery-1.9.0.min.js" type="text/javascript"></script>
+        <script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
    
-    <link href="/Content/bootstrap.min.css" media="all" rel="stylesheet" type="text/css">
-    <link href="/Content/editor.css" media="all" rel="stylesheet" type="text/css">
-    <link href="/Content/editorAditional.css" media="all" rel="stylesheet" type="text/css">
-    <link href="/Content/Site.css" media="all" rel="stylesheet" type="text/css">
-    <link href="/Content/application.css" media="all" rel="stylesheet" type="text/css">
-    
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
+        <link href="/Content/bootstrap.min.css" media="all" rel="stylesheet" type="text/css">
+        <link href="/Content/application.css" media="all" rel="stylesheet" type="text/css">
+        <link href="/Content/Site.css" media="all" rel="stylesheet" type="text/css">
 
-   
-    <script type="text/javascript">  var CKEDITOR_BASEPATH = 'https://d32xvvb5lxy7xi.cloudfront.net/assets/ckeditor4dot4dot1-June4/';</script>
-    @Scripts.Render("~/Scripts/javascripts")
+ 
+        @Scripts.Render("~/Scripts/javascripts")
+        @*<script type="text/javascript">  var CKEDITOR_BASEPATH = 'https://d32xvvb5lxy7xi.cloudfront.net/assets/ckeditor4dot4dot1-June4/';</script>*@
+    </head>
 
-</head>
     <body>
 
         
