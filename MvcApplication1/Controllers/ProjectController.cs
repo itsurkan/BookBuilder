@@ -15,7 +15,6 @@ using MvcApplication1.Filters;
 using MvcApplication1.Resources;
 using  PagedList;
 using PagedList.Mvc;
-using MvcApplication1.Filters;
 
 namespace MvcApplication1.Controllers
 { 
@@ -48,6 +47,7 @@ namespace MvcApplication1.Controllers
 
             var projects = from s in MvcApplication.RepoContext.Projects where s.UserLogin ==WebSecurity.UserLogin
                            select s;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 projects = projects.Where(s => s.Title.Contains(searchString)
@@ -153,7 +153,7 @@ namespace MvcApplication1.Controllers
                     RepoContext.SaveChanges();
                     return RedirectToAction("ProjectsList");
                 }
-                catch (Exception e)
+                catch (Exception)
         {
                     //Log the error (uncomment dex variable name and add a line here to write a log.
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");

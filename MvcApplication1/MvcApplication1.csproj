@@ -256,6 +256,7 @@
     <Content Include="ckeditor\adapters\jquery.js" />
     <Content Include="ckeditor\build-config.js" />
     <Content Include="ckeditor\ckeditor.js" />
+    <Content Include="ckeditor\Configure.js" />
     <Content Include="ckeditor\config.js" />
     <Content Include="ckeditor\contents.css" />
     <Content Include="ckeditor\lang\af.js" />
@@ -703,6 +704,7 @@
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Images\twitter.png" />
     <Content Include="Requests\SetDb.sql" />
+    <Content Include="Scripts\application.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
