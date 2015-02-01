@@ -1,0 +1,13 @@
+﻿.choose-role-img {
+    min-height: 180px;
+    min-width: 150px;
+}
+.hr-role {
+    color: #666;
+    background-color: #666;
+    border-radius: 10px;
+    height: 5px;
+}
+.row-role {
+    margin-left: 25%
+}

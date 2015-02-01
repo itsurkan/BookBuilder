@@ -1,0 +1,67 @@
+﻿@using MvcApplication1
+@model MvcApplication1.DbModels.UserProfile
+
+@{
+    ViewBag.Title = "title";
+}
+
+@*@foreach(var role in MvcApplication.RepoContext.Roles.Where(x=>x.LevelName != null))
+{
+  
+<form class="form-horizontal " role="form">
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">@role.LevelName</button>
+    </div>
+  </div>
+</form>
+}*@
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+<link rel="stylesheet" href="~/Content/bootstrap-image-gallery.min.css">
+
+<div class="container">
+    
+    <div class="row">
+
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img class="choose-role-img" src="~/Images/Roles/DemoUser.jpg" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img class="choose-role-img" src="~/Images/Roles/SimpleUser.jpg" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img class="choose-role-img" src="~/Images/Roles/GoldUser.jpg" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img class="choose-role-img" src="~/Images/Roles/PlatinumUser.jpg" alt="">
+            </a>
+        </div>
+    </div>
+    <hr class="hr-role"/>
+        <div class="row">
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb  row-role">
+            <a class="thumbnail " href="#">
+                <img class="choose-role-img" src="~/Images/Roles/SimpleAdmin.jpg" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb" id="superUserImg">
+            <a class="thumbnail" href="#" >
+                <img class="choose-role-img" src="~/Images/Roles/SuperAdmin.jpg" alt="">
+            </a>
+        </div>
+            
+    </div>
+
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<script src="~/Scripts/bootstrap-image-gallery.min.js"></script>
+<script src="~/Scripts/choose-role.js"></script>

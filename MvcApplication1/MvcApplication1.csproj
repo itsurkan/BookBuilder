@@ -241,7 +241,6 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\DictionaryTranslit.cs" />
     <Compile Include="Resources\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -598,6 +597,15 @@
     <Content Include="ckeditor\skins\moono\images\lock.png" />
     <Content Include="ckeditor\skins\moono\images\refresh.png" />
     <Content Include="ckeditor\styles.js" />
+    <Content Include="Content\bootstrap-image-gallery.min.css" />
+    <Content Include="Content\editor.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Images\Roles\DemoUser.jpg" />
+    <Content Include="Images\Roles\GoldUser.jpg" />
+    <Content Include="Images\Roles\PlatinumUser.jpg" />
+    <Content Include="Images\Roles\SimpleAdmin.jpg" />
+    <Content Include="Images\Roles\SimpleUser.jpg" />
+    <Content Include="Images\Roles\SuperAdmin.jpg" />
     <Content Include="Requests\SQLQuery1.sql" />
     <Content Include="Requests\SQLQuery2.sql" />
     <Content Include="Requests\SQLQuery3.sql" />
@@ -703,8 +711,10 @@
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Images\twitter.png" />
     <Content Include="Requests\SetDb.sql" />
+    <Content Include="Scripts\bootstrap-image-gallery.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\choose-role.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
     <Content Include="Scripts\jquery-1.9.0.min.map" />
@@ -776,6 +786,7 @@
     <Content Include="Views\Shared\_ChangePassword.cshtml" />
     <Content Include="Views\Settings\_ChangePassword.cshtml" />
     <Content Include="Views\Editor\Index.cshtml" />
+    <Content Include="Views\Account\ChooseRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Theme\Default\" />

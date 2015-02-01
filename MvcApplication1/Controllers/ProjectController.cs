@@ -9,7 +9,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
 using System.Xml.Linq;
-using BookBuilder.Resources;
 using MvcApplication1.DbModels;
 using MvcApplication1.Filters;
 using MvcApplication1.Resources;
@@ -88,7 +87,7 @@ namespace MvcApplication1.Controllers
             Log.Info("new project {0}", DateTime.Now);
             project.Date = DateTime.Now;
             project.UserLogin = WebSecurity.UserLogin;
-            project.Path = project.Title.Translit();
+            //project.Path = project.Title.Translit();
             try
             {
                 if (ModelState.IsValid)

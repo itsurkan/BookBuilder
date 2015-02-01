@@ -80,42 +80,6 @@ namespace MvcApplication1.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
-        {
-            MvcApplication.logger.Info("Try registration at {0}", DateTime.Now);
-            if (ModelState.IsValid)
-            {
-                if (!MvcApplication.RepoContext.UserProfiles.Any(x=>x.Mail == model.UserMail || x.Login == model.UserLogin))
-                {
-                    MvcApplication.RepoContext.UserProfiles.Add(new UserProfile
-                    {
-                        Login = model.UserLogin,
-                        Mail = model.UserMail,
-                        Password = model.Password,
-                        Role = 5
-                    });
-                    MvcApplication.RepoContext.SaveChanges();
-                    MvcApplication.logger.Info("Set into DB new user - login => {0}, mail => {1}, password => {2}",
-                        model.UserLogin, model.UserMail, model.Password);
-                    WebSecurity.UserLogin = model.UserLogin;
-                    WebSecurity.Remeber = false;
-                    FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin, WebSecurity.Remeber);
-                    MvcApplication.logger.Info("Set next user as already login {0}", WebSecurity.UserLogin);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    model.IsUserLoginAvilable = !MvcApplication.RepoContext.UserProfiles.Any(x => x.Login == model.UserLogin);
-                    model.IsUserMailAvilable =  !MvcApplication.RepoContext.UserProfiles.Any(x => x.Mail == model.UserMail);
-                }
-            }
-            MvcApplication.logger.Warn("Have some errors when register new user at {0}", DateTime.Now);
-            return View(model);
-        }
-
-        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
@@ -158,6 +122,57 @@ namespace MvcApplication1.Controllers
                 isNewPasswordHasError = errorModel.IsNewPasswordHasError,
                 isConfirmPasswordHasError = errorModel.IsConfirmPasswordHasError
             });
+        }
+         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegisterModel _model)
+        {
+            MvcApplication.logger.Info("Try registration at {0}", DateTime.Now);
+            if (ModelState.IsValid)
+            {
+                if (!MvcApplication.RepoContext.UserProfiles.Any(x=>x.Mail == _model.UserMail || x.Login == _model.UserLogin))
+                {
+                    return RedirectToAction("ChooseRole",new {model = _model});
+                }
+                else
+                {
+                    _model.IsUserLoginAvilable = !MvcApplication.RepoContext.UserProfiles.Any(x => x.Login == _model.UserLogin);
+                    _model.IsUserMailAvilable =  !MvcApplication.RepoContext.UserProfiles.Any(x => x.Mail == _model.UserMail);
+                }
+            }
+            MvcApplication.logger.Warn("Have some errors when register new user at {0}", DateTime.Now);
+            return View(_model);
+        }
+       
+        [HttpGet]
+        public ActionResult ChooseRole(RegisterModel model)
+        {
+            var profileModel = new UserProfile();
+            if (model != null)
+            {
+                profileModel = new UserProfile
+                {
+                    Login = model.UserLogin,
+                    Mail = model.UserMail,
+                    Password = model.Password
+                };
+            }
+            return View(profileModel);
+        }
+
+        [HttpPost]
+        public ActionResult ChooseRole(UserProfile model)
+        {
+            MvcApplication.RepoContext.UserProfiles.Add(model);
+            MvcApplication.RepoContext.SaveChanges();
+            MvcApplication.logger.Info("Set into DB new user - login => {0}, mail => {1}, password => {2}",
+                model.Login, model.Mail, model.Password, model.Role);
+            WebSecurity.UserLogin = model.Login;
+            WebSecurity.Remeber = false;
+            FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin, WebSecurity.Remeber);
+            MvcApplication.logger.Info("Set next user as already login {0}", WebSecurity.UserLogin);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
