@@ -1,28 +1,100 @@
-﻿
-@using System.Diagnostics
-@model List<MvcApplication1.DbModels.Projects>
-<div class="box" id="project-list">
-    <!-- <div class="box-top"></div> -->
-    <div class="list list-gray list-large">
+﻿@using PagedList.Mvc
+@model IQueryable<MvcApplication1.DbModels.Document>
+@{
+    var subDirectoryList = ViewBag.subDirectoryList;
+}
 
-        <div>
-            @{
-                foreach (var project in Model)
-                {
-                    //string prj = project.Path;
-                    //string hrefto = project.UserLogin + "/" + prj;
-                    const string hrefto = "DashBoard";
-                    <div class="list-item   ">
-                        <input type="checkbox" id="checkid" />
+<!--Main files bar-->
+<div class="row down10" id="project-show">
+    <div class="span7">
 
-                        <a style="display:inline-block" for="checkid" href=@hrefto class="list-padding">
-                            @project.Title
-                            <i class="icon-angle-right list-icon has-icon-outside-link hidden"></i>
-                        </a>
+        <div class="heading-split">
+            <h2>Files</h2>
+            <div class="pull-right" id="project-branches"></div>
+        </div>
+
+        <div id="project-path">
+            <ul class="path">
+                <li><a href=""><i class="glyphicons home"></i></a><span class="path-separator">/</span></li>
+            </ul>
+        </div>
+        <div class="box">
+
+            <!--Search box-->
+            <!--todo  доробити пошук-->
+            
+            @using (@Html.BeginForm("Index", "Dashboard", FormMethod.Get))
+            {
+                <div class="box-top hidden" id="project-search">
+                    <div class="search">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                        <input class="btn " type="submit" value="Search" style="margin-bottom: 10px;" />
                     </div>
-                }
+                </div>
+                
             }
 
+
+            <!--Project files-->
+            <div id="project-files">
+                <div class="tree-list list list-medium list-gray">
+                    @{
+                        foreach (var file in Model)
+                        {
+                            <div class="list-item file-list-item has-icon-outside-link">
+
+                                <a href=@file.Name class="list-padding"><i class="icon-file-text-alt"></i> &nbsp;@file.Name</a>
+                                <i class="action icon-gear icn-round list-icon"></i>
+                            </div>
+                        }
+
+                        foreach (var dir in subDirectoryList)
+                        {
+                            <div class="list-item file-list-item has-icon-outside-link">
+
+                                <a href="#" class="list-padding">
+                                    <i class="icon-folder-open-alt"></i> &nbsp;@dir
+                                    <i class="icon-angle-right list-icon"></i>
+                                </a>
+                                <i class="action icon-gear icn-round list-icon"></i>
+                            </div>
+
+                        }
+                    }
+
+
+                </div>
+            </div>
+
+            <!--Box bottom-->
+            <div class="box-bottom" id="project-control-buttons">
+                <div class="file-controls">
+                    <div id="file_controls_inner" class="">
+                        <div class="upload-view">
+                            <div id="upload_zone">
+                                Drag a file here to upload
+                            </div>
+                            <input id="fileUploadInput" type="file" style="display:none">
+                        </div>
+                        <div class="controls">
+                            <form class="new_file_form">
+                                <input class="file_name" value="file.html" type="text">
+                            </form>
+                            <form class="new_dir_form">
+                                <input class="dir_name" value="folder/" type="text">
+                            </form>
+                            <div class="file-control-buttons">
+                                <button class="create_btn btn"><span>Create </span> New File</button>
+                                <button class="create_dir_btn btn"><span>Create </span> New Folder</button>
+                                <button class="cancel_btn btn btn-small"><i class="icon-remove"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+
 </div>
+
