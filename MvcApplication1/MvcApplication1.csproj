@@ -979,38 +979,17 @@
     <Content Include="ckeditor\skins\office2013\images\refresh.png" />
     <Content Include="ckeditor\skins\office2013\skin.js" />
     <Content Include="ckeditor\styles.js" />
+    <Content Include="Content\application.css" />
     <Content Include="Content\bootstrap-image-gallery.min.css" />
-    <Content Include="Content\editor.css" />
-    <Content Include="Content\style.css" />
-    <Content Include="Files\RolesDescription\DemoUser.txt" />
-    <Content Include="Files\RolesDescription\GoldUser.txt" />
-    <Content Include="Files\RolesDescription\PlatinumUser.txt" />
-    <Content Include="Files\RolesDescription\SimpleAdmin.txt" />
-    <Content Include="Files\RolesDescription\SimpleUser.txt" />
-    <Content Include="Files\RolesDescription\SuperAdmin.txt" />
-    <Content Include="Images\close.ico" />
-    <Content Include="Images\Roles\DemoUser.jpg" />
-    <Content Include="Images\Roles\GoldUser.jpg" />
-    <Content Include="Images\Roles\PlatinumUser.jpg" />
-    <Content Include="Images\Roles\SimpleAdmin.jpg" />
-    <Content Include="Images\Roles\SimpleUser.jpg" />
-    <Content Include="Images\Roles\SuperAdmin.jpg" />
-    <Content Include="Requests\SQLQuery1.sql" />
-    <Content Include="Requests\SQLQuery2.sql" />
-    <Content Include="Requests\SQLQuery3.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\application.css" />
+    <Content Include="Content\editor.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
     <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
@@ -1033,12 +1012,6 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
     <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
@@ -1057,6 +1030,34 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Files\RolesDescription\DemoUser.txt" />
+    <Content Include="Files\RolesDescription\GoldUser.txt" />
+    <Content Include="Files\RolesDescription\PlatinumUser.txt" />
+    <Content Include="Files\RolesDescription\SimpleAdmin.txt" />
+    <Content Include="Files\RolesDescription\SimpleUser.txt" />
+    <Content Include="Files\RolesDescription\SuperAdmin.txt" />
+    <Content Include="Images\close.ico" />
+    <Content Include="Images\Roles\DemoUser.jpg" />
+    <Content Include="Images\Roles\GoldUser.jpg" />
+    <Content Include="Images\Roles\PlatinumUser.jpg" />
+    <Content Include="Images\Roles\SimpleAdmin.jpg" />
+    <Content Include="Images\Roles\SimpleUser.jpg" />
+    <Content Include="Images\Roles\SuperAdmin.jpg" />
+    <Content Include="Requests\SQLQuery1.sql" />
+    <Content Include="Requests\SQLQuery2.sql" />
+    <Content Include="Requests\SQLQuery3.sql" />
+    <Content Include="ckeditor\Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="ckeditor\Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="ckeditor\Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="ckeditor\Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="ckeditor\Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="ckeditor\Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="ckeditor\Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="ckeditor\Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="ckeditor\Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="ckeditor\Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="ckeditor\Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="ckeditor\Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1065,8 +1066,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <EntityDeploy Include="DbModels\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -1391,6 +1390,8 @@
     <Content Include="ckeditor\plugins\codesnippetgeshi\dev\geshi\geshi\z80.php" />
     <Content Include="ckeditor\plugins\codesnippetgeshi\dev\geshi\geshi\zxbasic.php" />
     <Content Include="ckeditor\plugins\codesnippetgeshi\README.md" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Requests\SetDb.sql" />
     <Content Include="Scripts\application.js" />
@@ -1427,7 +1428,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
@@ -1470,7 +1470,6 @@
     <Content Include="Views\Settings\_ChangePassword.cshtml" />
     <Content Include="Views\Editor\Index.cshtml" />
     <Content Include="Views\Account\ChooseRole.cshtml" />
-    <Content Include="Views\Account\View1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Theme\Default\" />

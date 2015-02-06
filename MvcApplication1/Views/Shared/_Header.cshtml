@@ -7,8 +7,16 @@
     <ul class="nav navbar-nav navbar-right">
         @if (MvcApplication.WebSecurity.HttpContext.Request.Cookies.AllKeys.Contains("UserLogin"))
         {
+             if (MvcApplication.WebSecurity.HttpContext.Request.Cookies["UserLogin"] !=null)
+             {            
             <li>@Html.ActionLink(MvcApplication.WebSecurity.HttpContext.Request.Cookies["UserLogin"].Value, "UserSettings", "Settings")</li>
             <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+              }
+              else
+              {
+            <li>@Html.ActionLink("Register", "Register", "Account")</li>
+            <li>@Html.ActionLink("Log in", "Login", "Account")</li>
+            }            
         }
         else
         {

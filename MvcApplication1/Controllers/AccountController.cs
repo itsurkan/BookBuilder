@@ -69,7 +69,7 @@ namespace MvcApplication1.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            MvcApplication.logger.Info("User {0} logoff at {1}", MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, DateTime.Now);
+            MvcApplication.logger.Info("User logoff at {0}", DateTime.Now);
             MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Expires = DateTime.Now.AddDays(-1);
             MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies.Remove("UserLogin");
             return RedirectToAction("Login");
@@ -188,12 +188,6 @@ namespace MvcApplication1.Controllers
             FormsAuthentication.SetAuthCookie(MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, false);
             MvcApplication.logger.Info("Set next user as already login {0}", MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value);
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
-        public ActionResult View1()
-        {
-            return View();
-        }
+        }     
     }
 }

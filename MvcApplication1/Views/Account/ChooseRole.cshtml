@@ -3,49 +3,57 @@
 
 @{
     ViewBag.Title = "title";
+    var demoUser = File.ReadAllText(Server.MapPath(@"~\Files\RolesDescription\DemoUser.txt"));
+    var simpleUser = File.ReadAllText(Server.MapPath(@"~\Files\RolesDescription\SimpleUser.txt"));
+    var goldUser = File.ReadAllText(Server.MapPath(@"~\Files\RolesDescription\GoldUser.txt"));
+    var platimunUser = File.ReadAllText(Server.MapPath(@"~\Files\RolesDescription\PlatinumUser.txt"));
+    var simpleAdmin = File.ReadAllText(Server.MapPath(@"~\Files\RolesDescription\SimpleAdmin.txt"));
+    var superAdmin = File.ReadAllText(Server.MapPath(@"~\Files\RolesDescription\SuperAdmin.txt"));
+    
 }
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
 <link rel="stylesheet" href="~/Content/bootstrap-image-gallery.min.css">
-@Html.BeginForm("ChooseRole","Account", FormMethod.Post)
+
+ 
 <div class="container">
     
     <div class="row">
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb small">
+            <a class="thumbnail" href="#" id="demo-small">
                 <img class="choose-role-img" src="~/Images/Roles/DemoUser.jpg" alt="">
                 <p class="img-text-role">Demo User</p>
             </a>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb small">
+            <a class="thumbnail" href="#" id="simpleU-small">
                 <img class="choose-role-img" src="~/Images/Roles/SimpleUser.jpg" alt="">
                 <p class="img-text-role">Simple User</p>
             </a>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb small">
+            <a class="thumbnail" href="#" id="gold-small">
                 <img class="choose-role-img" src="~/Images/Roles/GoldUser.jpg" alt="">
                 <p class="img-text-role">Gold User</p>
             </a>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb small">
+            <a class="thumbnail" href="#" id="platinum-small">
                 <img class="choose-role-img" src="~/Images/Roles/PlatinumUser.jpg" alt="">
                 <p class="img-text-role">Platimun User</p>
             </a>
         </div>
     </div>
-    <hr class="hr-role"/>
+    <hr class="hr-role" id="small"/>
         <div class="row">
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb  row-role">
-            <a class="thumbnail " href="#">
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb  row-role small-admin small">
+            <a class="thumbnail" href="#" id="simpleA-small">
                 <img class="choose-role-img" src="~/Images/Roles/SimpleAdmin.jpg" alt="">
                 <p class="img-text-role" >Simple Admin</p>
             </a>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb" id="superUserImg">
-            <a class="thumbnail" href="#" >
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb  small-admin small">
+            <a class="thumbnail" href="#" id="super-small">
                 <img class="choose-role-img" src="~/Images/Roles/SuperAdmin.jpg" alt="">
                 <p class="img-text-role" >Super Admin</p>
             </a>
@@ -54,6 +62,84 @@
     </div>
 
 </div>
+<div class="col-lg-12 col-md-7 col-xs-9 thumb" >
+            <div class="thumbnail full" href="#" id="demo-full">
+                <img class="full-img-role"  src="~/Images/Roles/DemoUser.jpg" alt="">
+                <h1 class="h1-role">Demo User</h1>
+                <h1 class="text-role demo-text">
+                    @demoUser
+                </h1>
+               
+                <a href="#" id="close">
+                  <img src="~/Images/close.png" class="close" />
+                   </a> 
+            </div>
+        </div>
+<div class="col-lg-12 col-md-7 col-xs-9 thumb">
+            <div class="thumbnail full" href="#"  id="simpleU-full">
+                <img class="full-img-role"  src="~/Images/Roles/SimpleUser.jpg" alt="">
+                <h1 class="h1-role">Simple User</h1>
+                <h1 class="text-role demo-text">
+                    @simpleUser
+                </h1>
+               
+                <a href="#" id="close">
+                  <img src="~/Images/close.png" class="close" />
+                   </a> 
+            </div>
+        </div>
+<div class="col-lg-12 col-md-7 col-xs-9 thumb" >
+            <div class="thumbnail full" href="#" id="gold-full">
+                <img  class="full-img-role" src="~/Images/Roles/GoldUser.jpg" alt="">
+                <h1 class="h1-role">Gold User</h1>
+                <h1 class="text-role demo-text">
+                    @goldUser
+                </h1>
+               
+                <a href="#" id="close">
+                  <img src="~/Images/close.png" class="close" />
+                   </a> 
+            </div>
+        </div>
+<div class="col-lg-12 col-md-7 col-xs-9 thumb" >
+            <div class="thumbnail full" href="#" id="platinum-full">
+                <img  class="full-img-role" src="~/Images/Roles/PlatinumUser.jpg" alt="">
+                <h1 class="h1-role">Platinum User</h1>
+                <h1 class="text-role demo-text">
+                    @platimunUser
+                </h1>
+               
+                <a href="#" id="close">
+                  <img src="~/Images/close.png" class="close" />
+                   </a> 
+            </div>
+        </div>
+<div class="col-lg-12 col-md-7 col-xs-9 thumb" >
+            <div class="thumbnail full" href="#" id="simpleA-full">
+                <img class="full-img-role"  src="~/Images/Roles/SimpleAdmin.jpg" alt="">
+                <h1 class="h1-role">Simple Admin</h1>
+                <h1 class="text-role demo-text">
+                    @simpleAdmin
+                </h1>
+               
+                <a href="#" id="close">
+                  <img src="~/Images/close.png" class="close" />
+                   </a> 
+            </div>
+        </div>
+<div class="col-lg-12 col-md-7 col-xs-9 thumb" >
+            <div class="thumbnail full" href="#" id="super-full">
+                <img class="full-img-role"  src="~/Images/Roles/SuperAdmin.jpg" alt="">
+                <h1 class="h1-role">Super Admin</h1>
+                <h1 class="text-role demo-text">
+                    @superAdmin
+                </h1>
+               
+                <a href="#" id="close">
+                  <img src="~/Images/close.png" class="close" />
+                   </a> 
+            </div>
+        </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
 <script src="~/Scripts/bootstrap-image-gallery.min.js"></script>
