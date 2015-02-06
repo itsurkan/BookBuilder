@@ -11,3 +11,25 @@
 .row-role {
     margin-left: 25%
 }
+.thumbnail {
+    position: relative; 
+}
+.img-text-role {
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    color: white;
+    font: bold 24px/45px Helvetica, sans-serif;
+}
+.h1-role {
+    color: white;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+.text-role {
+  color: white;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+}

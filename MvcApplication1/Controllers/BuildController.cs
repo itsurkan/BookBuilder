@@ -15,8 +15,11 @@ namespace MvcApplication1.Controllers
 
         public ActionResult Index(int id)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Build/Index"))
+                RedirectToAction("Login", "Account");
+
             ViewBag.Message = "Builds Page";
-            MvcApplication.logger.Info("Open builds page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
+            MvcApplication.logger.Info("Open builds page from {0} at {1}", MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, DateTime.Now);
             
             Projects project = db.Projects.Find(id);
 

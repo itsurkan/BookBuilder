@@ -1,5 +1,5 @@
-﻿$(document).ready(function(){ 
-    window.onresize = function(event) {
+﻿$(document).ready(function() {
+    $(window).on('resize', function(event) {
         var n = $("body").width();
 
         if (n < 935) {
@@ -7,5 +7,6 @@
         } else {
             $("#superUserImg").css("margin-left", "auto");
         }
-    }
+    });
+    
 }); 

@@ -54,6 +54,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -981,6 +982,13 @@
     <Content Include="Content\bootstrap-image-gallery.min.css" />
     <Content Include="Content\editor.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Files\RolesDescription\DemoUser.txt" />
+    <Content Include="Files\RolesDescription\GoldUser.txt" />
+    <Content Include="Files\RolesDescription\PlatinumUser.txt" />
+    <Content Include="Files\RolesDescription\SimpleAdmin.txt" />
+    <Content Include="Files\RolesDescription\SimpleUser.txt" />
+    <Content Include="Files\RolesDescription\SuperAdmin.txt" />
+    <Content Include="Images\close.ico" />
     <Content Include="Images\Roles\DemoUser.jpg" />
     <Content Include="Images\Roles\GoldUser.jpg" />
     <Content Include="Images\Roles\PlatinumUser.jpg" />
@@ -1052,9 +1060,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\bg.png" />
     <Content Include="Images\denim.png" />
-    <Content Include="Images\facebook.png" />
     <Content Include="Images\light_alu.png" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -1386,7 +1392,6 @@
     <Content Include="ckeditor\plugins\codesnippetgeshi\dev\geshi\geshi\zxbasic.php" />
     <Content Include="ckeditor\plugins\codesnippetgeshi\README.md" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
-    <Content Include="Images\twitter.png" />
     <Content Include="Requests\SetDb.sql" />
     <Content Include="Scripts\application.js" />
     <Content Include="Scripts\bootstrap-image-gallery.min.js" />
@@ -1465,6 +1470,7 @@
     <Content Include="Views\Settings\_ChangePassword.cshtml" />
     <Content Include="Views\Editor\Index.cshtml" />
     <Content Include="Views\Account\ChooseRole.cshtml" />
+    <Content Include="Views\Account\View1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Theme\Default\" />

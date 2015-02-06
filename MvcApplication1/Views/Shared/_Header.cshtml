@@ -1,19 +1,19 @@
-﻿@using MvcApplication1.Filters
-@using WebSecurity = MvcApplication1.Filters.WebSecurity
+﻿@using MvcApplication1
+@using MvcApplication1.Filters
 
 @{
     Layout = null;
 }
     <ul class="nav navbar-nav navbar-right">
-        @if (WebSecurity.UserLogin != null)
+        @if (MvcApplication.WebSecurity.HttpContext.Request.Cookies.AllKeys.Contains("UserLogin"))
         {
-            <li>@Html.ActionLink(WebSecurity.UserLogin, "UserSettings", "Settings")</li>
+            <li>@Html.ActionLink(MvcApplication.WebSecurity.HttpContext.Request.Cookies["UserLogin"].Value, "UserSettings", "Settings")</li>
             <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
         }
         else
         {
             <li>@Html.ActionLink("Register", "Register", "Account")</li>
-    <li>@Html.ActionLink("Log in", "Login", "Account")</li>
+            <li>@Html.ActionLink("Log in", "Login", "Account")</li>
         }
     </ul>
 

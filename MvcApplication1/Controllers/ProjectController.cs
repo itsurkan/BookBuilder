@@ -22,17 +22,19 @@ namespace MvcApplication1.Controllers
     {
         public Entities RepoContext = MvcApplication.RepoContext;
         public NLog.Logger Log = MvcApplication.logger;
-        public static string PathToFiles = "App_Data/";
+        public static string PathToFiles = "Files/";
 
-   
         // GET: /Projects/
         [HttpGet]
         public ViewResult ProjectsList(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            MvcApplication.logger.Info("Enter to project list as {0} by {1}", WebSecurity.UserLogin, DateTime.Now);
+            MvcApplication.logger.Info("Enter to project list as {0} by {1}", MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, DateTime.Now);
             if (searchString != null)
             {
                 page = 1;
@@ -43,8 +45,9 @@ namespace MvcApplication1.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-
-            var projects = from s in MvcApplication.RepoContext.Projects where s.UserLogin ==WebSecurity.UserLogin
+            var userName = MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value;
+            var projects = from s in MvcApplication.RepoContext.Projects
+                           where s.UserLogin == userName
                            select s;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -75,7 +78,10 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult NewProject()
         {
-            MvcApplication.logger.Info("Creating new project from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
+            MvcApplication.logger.Info("Creating new project from {0} at {1}", MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, DateTime.Now);
             ViewBag.Message = "New Project";
             return View();
         }
@@ -84,9 +90,12 @@ namespace MvcApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult NewProject([Bind(Include = "Title, Description")]Projects project)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
             Log.Info("new project {0}", DateTime.Now);
             project.Date = DateTime.Now;
-            project.UserLogin = WebSecurity.UserLogin;
+            project.UserLogin = MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value;
             //project.Path = project.Title.Translit();
             try
             {
@@ -112,6 +121,9 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult Edit(int? id)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
             Log.Info("Edit title page {0}", DateTime.Now);
 
             if (id == null)
@@ -136,6 +148,9 @@ namespace MvcApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
             MvcApplication.logger.Info("Edit title page click {0}", DateTime.Now);
             if (id == null)
             {
@@ -169,6 +184,9 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -189,6 +207,9 @@ namespace MvcApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
             try
             {
                 MvcApplication.logger.Info("Delete project {0}", DateTime.Now);
@@ -210,8 +231,11 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult Setting(int id)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
             ViewBag.Message = "Builds Page";
-            MvcApplication.logger.Info("Open settings project page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
+            MvcApplication.logger.Info("Open settings project page from {0} at {1}", MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, DateTime.Now);
             Projects project = MvcApplication.RepoContext.Projects.Find(id);
             Log.Info("Dashboard fid project by id:{0}", id);
 
@@ -226,6 +250,9 @@ namespace MvcApplication1.Controllers
         [HttpPost]
         public ActionResult ArchiveProject(object value)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
             return RedirectToAction("ProjectsList");
         }
 

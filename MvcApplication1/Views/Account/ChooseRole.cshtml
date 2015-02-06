@@ -4,44 +4,35 @@
 @{
     ViewBag.Title = "title";
 }
-
-@*@foreach(var role in MvcApplication.RepoContext.Roles.Where(x=>x.LevelName != null))
-{
-  
-<form class="form-horizontal " role="form">
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">@role.LevelName</button>
-    </div>
-  </div>
-</form>
-}*@
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
 <link rel="stylesheet" href="~/Content/bootstrap-image-gallery.min.css">
-
+@Html.BeginForm("ChooseRole","Account", FormMethod.Post)
 <div class="container">
     
     <div class="row">
-
         <div class="col-lg-3 col-md-4 col-xs-6 thumb">
             <a class="thumbnail" href="#">
                 <img class="choose-role-img" src="~/Images/Roles/DemoUser.jpg" alt="">
+                <p class="img-text-role">Demo User</p>
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6 thumb">
             <a class="thumbnail" href="#">
                 <img class="choose-role-img" src="~/Images/Roles/SimpleUser.jpg" alt="">
+                <p class="img-text-role">Simple User</p>
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6 thumb">
             <a class="thumbnail" href="#">
                 <img class="choose-role-img" src="~/Images/Roles/GoldUser.jpg" alt="">
+                <p class="img-text-role">Gold User</p>
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6 thumb">
             <a class="thumbnail" href="#">
                 <img class="choose-role-img" src="~/Images/Roles/PlatinumUser.jpg" alt="">
+                <p class="img-text-role">Platimun User</p>
             </a>
         </div>
     </div>
@@ -50,11 +41,13 @@
         <div class="col-lg-3 col-md-4 col-xs-6 thumb  row-role">
             <a class="thumbnail " href="#">
                 <img class="choose-role-img" src="~/Images/Roles/SimpleAdmin.jpg" alt="">
+                <p class="img-text-role" >Simple Admin</p>
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6 thumb" id="superUserImg">
             <a class="thumbnail" href="#" >
                 <img class="choose-role-img" src="~/Images/Roles/SuperAdmin.jpg" alt="">
+                <p class="img-text-role" >Super Admin</p>
             </a>
         </div>
             

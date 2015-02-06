@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -15,7 +16,6 @@ using MvcApplication1.Filters;
 using MvcApplication1.Resources;
 using WebMatrix.WebData;
 using MvcApplication1.Models;
-using WebSecurity = MvcApplication1.Filters.WebSecurity;
 
 namespace MvcApplication1.Controllers
 {
@@ -25,6 +25,10 @@ namespace MvcApplication1.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (MvcApplication.WebSecurity.ControllerContext == null)
+                MvcApplication.WebSecurity.ControllerContext = this.ControllerContext;
+            if (MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("UserLogin"))
+                return RedirectToAction("ProjectsList", "Project");
             MvcApplication.logger.Info("Open log page at {0}", DateTime.Now);
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -34,11 +38,11 @@ namespace MvcApplication1.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
-        {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserMail, model.Password, model.RememberMe))
+        {            
+            if (ModelState.IsValid && MvcApplication.WebSecurity.Login(model.UserMail, model.Password, model.RememberMe))
             {
-                FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin, WebSecurity.Remeber);
-                MvcApplication.logger.Info("Login succesfull at {0} like {1}", DateTime.Now, WebSecurity.UserLogin);
+                FormsAuthentication.SetAuthCookie(MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, model.RememberMe);
+                MvcApplication.logger.Info("Login succesfull at {0} like {1}", DateTime.Now, MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value);
                 return RedirectToLocal(returnUrl);
             }
             MvcApplication.logger.Warn("Login failed with user mail {0} at {1}", model.UserMail, DateTime.Now);
@@ -65,9 +69,9 @@ namespace MvcApplication1.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            MvcApplication.logger.Info("User {0} logoff at {1}", WebSecurity.UserLogin, DateTime.Now);
-            WebSecurity.UserLogin = null;
-            WebSecurity.Remeber = false;
+            MvcApplication.logger.Info("User {0} logoff at {1}", MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, DateTime.Now);
+            MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Expires = DateTime.Now.AddDays(-1);
+            MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies.Remove("UserLogin");
             return RedirectToAction("Login");
         }
 
@@ -83,10 +87,12 @@ namespace MvcApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
-            MvcApplication.logger.Info("User {0} wan't to change his password at {1}", WebSecurity.UserLogin,
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Account/ChangePassword"))
+                RedirectToAction("Login", "Account");
+
+            MvcApplication.logger.Info("User {0} wan't to change his password at {1}", MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value,
                 DateTime.Now);
-            //todo якщо 3 раз ввести неправильно свій поточний пароль - розлогінити!!!!
-            var user = MvcApplication.RepoContext.UserProfiles.FirstOrDefault(x => x.Login == WebSecurity.UserLogin);
+            var user = MvcApplication.RepoContext.UserProfiles.FirstOrDefault(x => x.Login == MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value);
             var errorModel = new ChangePasswordModel();
             if (user != null)
             {
@@ -109,7 +115,14 @@ namespace MvcApplication1.Controllers
                     user.Password = model.NewPassword;
                     MvcApplication.RepoContext.SaveChanges();
                 }
-
+                if (errorModel.IsOldPasswordHasError)
+                    MvcApplication.WebSecurity.FailCounter++;
+                if (MvcApplication.WebSecurity.FailCounter == MvcApplication.WebSecurity.RetryCount)
+                {
+                    MvcApplication.WebSecurity.FailCounter = 0;
+                    MvcApplication.logger.Warn("User enter 3 times wrong password, redirect to logoff and to login after at {0}", DateTime.Now);
+                    return RedirectToAction("LogOff");
+                }
             }
             else
             {
@@ -123,7 +136,8 @@ namespace MvcApplication1.Controllers
                 isConfirmPasswordHasError = errorModel.IsConfirmPasswordHasError
             });
         }
-         [HttpPost]
+
+        [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel _model)
@@ -131,21 +145,22 @@ namespace MvcApplication1.Controllers
             MvcApplication.logger.Info("Try registration at {0}", DateTime.Now);
             if (ModelState.IsValid)
             {
-                if (!MvcApplication.RepoContext.UserProfiles.Any(x=>x.Mail == _model.UserMail || x.Login == _model.UserLogin))
+                if (!MvcApplication.RepoContext.UserProfiles.Any(x => x.Mail == _model.UserMail || x.Login == _model.UserLogin))
                 {
-                    return RedirectToAction("ChooseRole",new {model = _model});
+                    return RedirectToAction("ChooseRole", new { model = _model });
                 }
                 else
                 {
                     _model.IsUserLoginAvilable = !MvcApplication.RepoContext.UserProfiles.Any(x => x.Login == _model.UserLogin);
-                    _model.IsUserMailAvilable =  !MvcApplication.RepoContext.UserProfiles.Any(x => x.Mail == _model.UserMail);
+                    _model.IsUserMailAvilable = !MvcApplication.RepoContext.UserProfiles.Any(x => x.Mail == _model.UserMail);
                 }
             }
             MvcApplication.logger.Warn("Have some errors when register new user at {0}", DateTime.Now);
             return View(_model);
         }
-       
+
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult ChooseRole(RegisterModel model)
         {
             var profileModel = new UserProfile();
@@ -162,17 +177,23 @@ namespace MvcApplication1.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult ChooseRole(UserProfile model)
         {
             MvcApplication.RepoContext.UserProfiles.Add(model);
             MvcApplication.RepoContext.SaveChanges();
             MvcApplication.logger.Info("Set into DB new user - login => {0}, mail => {1}, password => {2}",
                 model.Login, model.Mail, model.Password, model.Role);
-            WebSecurity.UserLogin = model.Login;
-            WebSecurity.Remeber = false;
-            FormsAuthentication.SetAuthCookie(WebSecurity.UserLogin, WebSecurity.Remeber);
-            MvcApplication.logger.Info("Set next user as already login {0}", WebSecurity.UserLogin);
+            MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value = model.Login;
+            FormsAuthentication.SetAuthCookie(MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, false);
+            MvcApplication.logger.Info("Set next user as already login {0}", MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value);
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult View1()
+        {
+            return View();
         }
     }
 }
