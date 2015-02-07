@@ -33,7 +33,7 @@ namespace MvcApplication1.Controllers
                 MvcApplication.logger.Info("Open dashboard from {0} at {1} with title = {2}", 
                     WebSecurity.UserLogin, DateTime.Now, project.Title);
 
-                ViewBag.path = @"~\App_Data\" + project.UserLogin + @"\" + project.Path;
+                ViewBag.path = @"~\Files\" + project.UserLogin + @"\" + project.Path;
                 var directory = new DirectoryInfo(Server.MapPath(ViewBag.path));
 
                 if (!directory.Exists)

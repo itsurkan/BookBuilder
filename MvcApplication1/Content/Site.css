@@ -1,4 +1,9 @@
-﻿
+﻿div[editor1] {
+    border-color: #a0c0e4; 
+    border-radius: 2px; 
+    outline: none;
+}
+}
 .li-class {
     margin: 12px;
     font-size: 20px;

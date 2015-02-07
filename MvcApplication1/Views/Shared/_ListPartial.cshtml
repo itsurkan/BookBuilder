@@ -31,7 +31,6 @@
                         <input class="btn " type="submit" value="Search" style="margin-bottom: 10px;" />
                     </div>
                 </div>
-                
             }
 
 
@@ -42,9 +41,11 @@
                         foreach (var file in Model)
                         {
                             <div class="list-item file-list-item has-icon-outside-link">
-
-                                <a href=@file.Name class="list-padding"><i class="icon-file-text-alt"></i> &nbsp;@file.Name</a>
-                                <i class="action icon-gear icn-round list-icon"></i>
+                                <div class="list-padding">
+                                    <i class="icon-file-text-alt"></i>
+                                    @Html.ActionLink(@file.Name,  "Index", "Editor", new{file.Id}, null)
+                                    <i class="action icon-gear icn-round list-icon"></i>
+                                </div>
                             </div>
                         }
 

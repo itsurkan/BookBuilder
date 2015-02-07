@@ -22,7 +22,7 @@ namespace MvcApplication1.Controllers
     {
         public Entities RepoContext = MvcApplication.RepoContext;
         public NLog.Logger Log = MvcApplication.logger;
-        public static string PathToFiles = "App_Data/";
+        public static string PathToFiles = "Files/";
 
    
         // GET: /Projects/
