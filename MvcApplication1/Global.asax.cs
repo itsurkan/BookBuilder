@@ -10,6 +10,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using MvcApplication1.DbModels;
 using WebMatrix.WebData;
+using MvcApplication1.Filters;
 
 namespace MvcApplication1
 {
@@ -20,13 +21,15 @@ namespace MvcApplication1
     {
         public static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         public static Entities RepoContext = new Entities();
+        public static MvcApplication1.Filters.WebSecurityController WebSecurity = new MvcApplication1.Filters.WebSecurityController();
         //todo додати ролі, які будуть постійно провірятись у лайауті!!!!
         protected void Application_Start()
         {
+            
             logger.Info("Application Start at {0}", DateTime.Now);
             //test();
             AreaRegistration.RegisterAllAreas();
-            var test = MvcApplication.RepoContext.UserProfiles.FirstOrDefault();
+            MvcApplication.RepoContext.UserProfiles.FirstOrDefault();
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

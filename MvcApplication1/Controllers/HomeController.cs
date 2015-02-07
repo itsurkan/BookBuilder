@@ -15,6 +15,8 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
             return View();
         }
@@ -22,6 +24,8 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult About()
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -30,6 +34,8 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult Contact()
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
             ViewBag.Message = "Your contact page.";
 
             return View();

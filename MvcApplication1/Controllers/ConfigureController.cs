@@ -17,14 +17,17 @@ namespace MvcApplication1.Controllers
 
         public ActionResult Index(int id)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Configure/Index"))
+                RedirectToAction("Login", "account");
+
             ViewBag.Message = "Configuration Page";
-            Log.Info("Open configuration page from {0} at {1}", WebSecurity.UserLogin, DateTime.Now);
+            Log.Info("Open configuration page from {0} at {1}", MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, DateTime.Now);
 
             Projects project = db.Projects.Find(id);
 
             if (project != null)
             {
-                ViewBag.path = @"~\App_Data\" + project.UserLogin + @"\" + project.Path;
+                ViewBag.path = @"~\Files\" + project.UserLogin + @"\" + project.Path;
                 var directory = new DirectoryInfo(Server.MapPath(ViewBag.path));
 
                 if (!directory.Exists)

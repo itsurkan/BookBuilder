@@ -22,6 +22,9 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult Index(int id)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
             ViewBag.Message = "DashBoard";
             Log.Info("Dashboard fid project by id:{0}", id);
 
@@ -30,8 +33,8 @@ namespace MvcApplication1.Controllers
 
             if (ModelState.IsValid)
             {
-                MvcApplication.logger.Info("Open dashboard from {0} at {1} with title = {2}", 
-                    WebSecurity.UserLogin, DateTime.Now, project.Title);
+                MvcApplication.logger.Info("Open dashboard from {0} at {1} with title = {2}",
+                    MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, DateTime.Now, project.Title);
 
                 ViewBag.path = @"~\Files\" + project.UserLogin + @"\" + project.Path;
                 var directory = new DirectoryInfo(Server.MapPath(ViewBag.path));
@@ -57,6 +60,8 @@ namespace MvcApplication1.Controllers
         [HttpPost]
         public ActionResult AddFile()
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
             // для додвання файлу
             // перевірка на наявність файлу з такою ж назвою
 
@@ -84,6 +89,9 @@ namespace MvcApplication1.Controllers
 
         public ActionResult Index2(int id, string currentFilter, string searchString, int? page)
         {
+            if (!MvcApplication.WebSecurity.CheckUserLogin("/Dashboard/Index"))
+                RedirectToAction("Login", "Account");
+
             ViewBag.Message = "DashBoard";
             Log.Info("Dashboard fid project by id:{0}", id);
 
@@ -93,9 +101,9 @@ namespace MvcApplication1.Controllers
             if (ModelState.IsValid)
             {
                 MvcApplication.logger.Info("Open dashboard from {0} at {1} with title = {2}",
-                    WebSecurity.UserLogin, DateTime.Now, project.Title);
+                   MvcApplication.WebSecurity.ControllerContext.HttpContext.Request.Cookies["UserLogin"].Value, DateTime.Now, project.Title);
 
-                ViewBag.path = @"~\App_Data\" + project.UserLogin + @"\" + project.Path;
+                ViewBag.path = @"~\Files\" + project.UserLogin + @"\" + project.Path;
                 var directory = new DirectoryInfo(Server.MapPath(ViewBag.path));
 
                 if (!directory.Exists)
