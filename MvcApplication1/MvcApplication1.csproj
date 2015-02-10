@@ -200,6 +200,7 @@
     <Compile Include="Controllers\ConfigureController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EditorController.cs" />
+    <Compile Include="Controllers\obje.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
@@ -259,6 +260,7 @@
     <Content Include="ckeditor\Configure.js" />
     <Content Include="ckeditor\config.js" />
     <Content Include="ckeditor\contents.css" />
+    <Content Include="ckeditor\editor1.css" />
     <Content Include="ckeditor\plugins\codemirror\css\codemirror.min.css" />
     <Content Include="ckeditor\plugins\codemirror\icons\autocomplete.png" />
     <Content Include="ckeditor\plugins\codemirror\icons\autoformat.png" />
@@ -543,6 +545,10 @@
     <Content Include="ckeditor\plugins\pbckcode-1.2.3\plugin.js" />
     <Content Include="ckeditor\plugins\textselection\plugin.js" />
     <Content Include="ckeditor\plugins\textselection\samples\textselection.html" />
+    <Content Include="ckeditor\plugins\savebtn\icons\hidpi\savebtn.png" />
+    <Content Include="ckeditor\plugins\savebtn\icons\loader.gif" />
+    <Content Include="ckeditor\plugins\savebtn\icons\savebtn.png" />
+    <Content Include="ckeditor\plugins\savebtn\plugin.js" />
     <Content Include="ckeditor\skins\icy_orange\bold.png" />
     <Content Include="ckeditor\skins\icy_orange\dev\icons16.png" />
     <Content Include="ckeditor\skins\icy_orange\dev\icons16.svg" />
@@ -925,6 +931,7 @@
     <Content Include="ckeditor\skins\moonocolor\dialog_iequirks.css" />
     <Content Include="ckeditor\skins\moonocolor\dialog_opera.css" />
     <Content Include="ckeditor\skins\moonocolor\editor.css" />
+    <Content Include="ckeditor\skins\moonocolor\editor1.css" />
     <Content Include="ckeditor\skins\moonocolor\editor_gecko.css" />
     <Content Include="ckeditor\skins\moonocolor\editor_ie.css" />
     <Content Include="ckeditor\skins\moonocolor\editor_ie7.css" />
@@ -1392,6 +1399,8 @@
     <Content Include="ckeditor\plugins\codesnippetgeshi\README.md" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="ckeditor\plugins\savebtn\icons\hidpi\Thumbs.db" />
+    <Content Include="ckeditor\plugins\savebtn\icons\Thumbs.db" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Requests\SetDb.sql" />
     <Content Include="Scripts\application.js" />
@@ -1399,6 +1408,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\choose-role.js" />
+    <Content Include="Scripts\Editor\CKEditor.js" />
+    <Content Include="Scripts\Editor\SaveData.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
     <Content Include="Scripts\jquery-1.9.0.min.map" />

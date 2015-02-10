@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.HtmlControls;
 using MvcApplication1.DbModels;
 
 namespace MvcApplication1.Controllers
@@ -30,8 +32,8 @@ namespace MvcApplication1.Controllers
 
                     ViewBag.Content = System.IO.File.ReadAllText(Server.MapPath(path));
                     ViewBag.Document = doc;
-                    MvcApplication.logger.Info(ViewBag.Content);
-                    return View(doc);
+                    MvcApplication.logger.Info(doc.Name);
+                    return View();
                 }
                 catch (Exception e)
                 {
@@ -45,19 +47,19 @@ namespace MvcApplication1.Controllers
 
         }
 
-        public ActionResult  Save(string doc)
+        [HttpPost]
+        public void Save(string textAnswer, int id)
         {
             //string path = @"~\Files\" + doc.Project1.UserLogin + @"\" + doc.Project1.Path + @"\" + doc.Path +
             //                     @"\" + doc.Name;
            // System.IO.File.WriteAllText(path, doc);
             Log.Info("Save button clicked:");
-            //Log.Info(id);
-            Log.Info(doc);
-            return View("Index",(Document)ViewBag.Document);
+          
+            //Log.Info(doc.GetType());
 
-
-
-
+            Log.Info("Exit save");
+            //return doc.ToString();
+            //View("Index",(Document)ViewBag.Document);
         }
     }
 }

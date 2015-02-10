@@ -25,6 +25,8 @@
             }
         }
     });
+
+
 CKEDITOR.on('change', function(evt) {
     // getData() returns CKEditor's HTML content.
     alert(   evt.editor.getData().length);

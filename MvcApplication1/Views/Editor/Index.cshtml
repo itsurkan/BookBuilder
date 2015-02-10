@@ -1,65 +1,101 @@
-﻿@model MvcApplication1.DbModels.Document
+﻿@using MvcApplication1.DbModels
 @{
     Layout = null;
 }
+<html>
+    <head>
+        <title>Edit Document</title>
+        <script src="/ckeditor/ckeditor.js" type="text/javascript"> </script>
+        <script src="/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+        <script src="/Scripts/jquery-1.9.0.js"></script>
+        <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="/Scripts/jquery.validate.js"></script>
 
-<script src="/ckeditor/ckeditor.js" type="text/javascript"> </script>
-<script src="/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
-<script src="/Scripts/jquery-1.9.0.js"></script>
-<script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
-<script src="/Scripts/jquery.validate.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 
+        <script src="~/Scripts/Editor/SaveData.js" type="text/javascript"></script>
+        <script src="~/Scripts/Editor/CKEditor.js" type="text/javascript"></script>
 
+        <link rel="stylesheet" href="/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css">
+        <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+        <link rel="stylesheet" href="~/Content/application.css">
+        <link rel="stylesheet" href="~/ckeditor/samples/sample.css">
+    </head>
+    <body>
+        <div>
+            <div class="">
+                <ul class="editor-btn-group editor-btn-group-left">
+                    <li class="btn block">
+                        <a href="@Url.Action("Index", "Dashboard", new { ((Document)ViewBag.Document).Id })">
+                            <i class="glyphicons dashboard"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class=" btn">
+                        <a href="javascript:void('Source')"
+                           onkeydown="return CKEDITOR.tools.callFunction(1,event);"
+                           onfocus="return CKEDITOR.tools.callFunction(2,event);"
+                           onclick="CKEDITOR.tools.callFunction(3,this);return false;">
+                            <i class="glyphicons pencil"></i>
+                            Source code
+                        </a>
+                    </li>
+                    <li>
+                        <i class="glyphicons more_items"></i>
+                        <input onclick="saveEditorData();" type="button" value="Save" class="btn" id="files-btn">
+                    </li>
+                    <li>
+                        <div>
+                            <div id="eButtons">
+                                <input onclick="InsertHTML();" type="button" value="Insert HTML">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
-<script>hljs.initHighlightingOnLoad();</script>
+         
+                @*@Html.TextArea("editor", (string)ViewBag.Content, new { @class = "ckeditor", @id = "editor" })*@
+                @Html.TextArea("editor3", (string)ViewBag.Content, new { @class = "ckeditor", @id = "editor" })
 
-
-<script src="~/Scripts/Editor/SaveData.js" type="text/javascript"></script>
-<script src="~/Scripts/Editor/CKEditor.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css">
-<link rel="stylesheet" href="~/Content/bootstrap.min.css">
-<link rel="stylesheet" href="~/Content/application.css">
-<link rel="stylesheet" href="~/ckeditor/samples/sample.css">
-
-@using (Html.BeginForm("Save", "Editor", FormMethod.Post))
-{
-    <div>
-        <div class="">
-            <ul class="editor-btn-group editor-btn-group-left">
-                <li class="btn block">
-                    <a href="@Url.Action("Index", "Dashboard", new { Id = Model.Project })">
-                        <i class="glyphicons dashboard"></i>Dashboard
-                    </a>
-                </li>
-                <li class=" btn">
-                    <a href="javascript:void('Source')" 
-                       onkeydown="return CKEDITOR.tools.callFunction(1,event);"
-                       onfocus="return CKEDITOR.tools.callFunction(2,event);"
-                       onclick="CKEDITOR.tools.callFunction(3,this);return false;">
-                        <i class="glyphicons pencil"></i>
-                        Source code
-                    </a>
-                </li>
-                <li>
-                    <i class="glyphicons more_items"></i>
-                    <input onclick="saveEditorData();" type="button"  value="Save" class="btn" id="files-btn">
-                </li>
-                <li>
-                    <div>
-                        <div id="eButtons">
-                            <input onclick="InsertHTML();" type="button" value="Insert HTML">
+                @using (Html.BeginForm("Save", "Editor", FormMethod.Post))
+                {
+                    <div class="center-block" style="width: 90%">
+                
+                     
+                        <div id="content2" >
+                            <textarea id="editorcontent2" name="textAnswer"></textarea>
                         </div>
                     </div>
-                </li>
-            </ul>
-        </div>
+                        <button type="submit">Enviar</button>
 
-        <div class="center-block" style="width: 90%">
-            @Html.HiddenFor(model=>model.Id)
-            @Html.TextArea("editor", (string) ViewBag.Content, new {@class = "ckeditor", @id = "editor"})
-        </div>
+                }
 
-        <div class="hidden" id="htmlArea" value=" it is demo">This is demo</div>
-    </div>
-}
+        </div>
+    </body>
+</html>
+
+<script data-sample="2">
+    
+    (function () {
+        var changesCount = 0;
+        var editor2 = CKEDITOR.replace('editor3', {
+            removePlugins: 'sourcearea'
+
+        });
+
+        $('document').ready(function () {
+            document.getElementById('editorcontent2').innerHTML = editor2.getData();
+        });
+
+        editor2.on('change', function (ev) {
+            changesCount++;
+            //document.getElementById('changes').innerHTML = changesCount.toString();
+            document.getElementById('editorcontent2').innerHTML = editor2.getData();
+        });
+    })();
+
+
+</script>
+
+     
+

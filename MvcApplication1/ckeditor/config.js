@@ -28,25 +28,24 @@ CKEDITOR.editorConfig = function (e) {
 
         //e.tool = 'body{background:#FFFFFF;text-align:left;font-size:0.8em;}',
         //e.tool='body{padding: 1px;margin: 0;background-color: #ffffff;}',
-
-	    e.enterMode = CKEDITOR.ENTER_P,
-	    e.shiftEnterMode = CKEDITOR.ENTER_BR,
-	    e.colorButton_enableMore = true,
-  	    e.bodyId = 'content',
-	    e.entities = false,
-	    e.forceSimpleAmpersand = false,
-	    e.fontSize_defaultLabel = '14px',
-	    e.font_defaultLabel = 'Arial',
-	    e.emailProtection = 'encode',
-	    e.toolbarLocation = 'top',
-	    e.browserContextMenuOnCtrl = false,
-
+        e.enterMode = CKEDITOR.ENTER_P,
+        e.shiftEnterMode = CKEDITOR.ENTER_BR,
+        e.colorButton_enableMore = true,
+        e.bodyId = 'content',
+        e.entities = false,
+        e.forceSimpleAmpersand = false,
+        e.fontSize_defaultLabel = '14px',
+        e.font_defaultLabel = 'Arial',
+        e.emailProtection = 'encode',
+        e.toolbarLocation = 'top',
+        e.browserContextMenuOnCtrl = false,
         e.addCss = '.cke_editable{border-color: #FFFFFF;}',
-      
 
+        // e.config.addContentsCss = '/Content/application.css',
+        //e.config.ContentsCss = 'editor1.css';
+        e.extraPlugins = 'codesnippet,codemirror,codeTag,textselection,autogrow,save', //save widget lite lineutils
+        //config.saveSubmitURL = '/Save/';
 
-
-        e.extraPlugins = 'codesnippet,codemirror,codeTag,textselection,autogrow', //save widget lite lineutils
         e.autoGrow_minHeight = 200;
         e.autoGrow_maxHeight = 600;
         e.autoGrow_bottomSpace = 50;
